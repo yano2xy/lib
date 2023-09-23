@@ -1,8 +1,5 @@
 {
     "code-runner.runInTerminal": true,
-    "code-runner.executorMap": {
-        "cpp": "cd $dir && g++ -std=gnu++20 $fileName -o $fileNameWithoutExt"
-    },
     "code-runner.ignoreSelection": true,
     "C_Cpp.codeAnalysis.clangTidy.enabled": true,
     "C_Cpp.codeAnalysis.clangTidy.path": "/opt/homebrew/opt/llvm/bin/clang-tidy",
