@@ -2,6 +2,9 @@
 #include <vector>
 using namespace std;
 
+/*
+    dsu
+*/
 struct dsu {
     vector<int> data;
 
