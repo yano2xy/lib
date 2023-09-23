@@ -1,0 +1,25 @@
+{
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+        "cpp": "cd $dir && g++ -std=gnu++20 $fileName -o $fileNameWithoutExt"
+    },
+    "code-runner.ignoreSelection": true,
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    "C_Cpp.codeAnalysis.clangTidy.path": "/opt/homebrew/opt/llvm/bin/clang-tidy",
+    "clang-format.executable": "/opt/homebrew/bin/clang-format",
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.formatOnType": false,
+    "editor.formatOnSave": true,
+    "editor.suggest.snippetsPreventQuickSuggestions": true,
+    "files.associations": {
+        "ostream": "cpp",
+        "*.tcc": "cpp",
+        "all": "cpp",
+        "valarray": "cpp"
+    },
+    "command-runner.commands": {
+        "atcoder-tools test": "cd ${fileDirname} && atcoder-tools test",
+        "atcoder-tools submit": "cd ${fileDirname} && atcoder-tools submit",
+        "echo": "echo ${fileDirname}"
+    }
+}
