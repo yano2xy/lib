@@ -19,7 +19,7 @@ struct dsu {
     }
 
     int find(int k) {
-        if (data[k] < 0) return (k);
+        if (data[k] < 0) return k;
         return data[k] = find(data[k]);
     }
 
