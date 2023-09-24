@@ -75,4 +75,8 @@ struct dsu_potential {
 
         return ret;
     }
+    /*
+        @brief ポテンシャル付き UnionFind
+        @docs docs/dsu_potential.md
+    */
 };
