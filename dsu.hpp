@@ -1,6 +1,4 @@
-#include <ranges>
-#include <vector>
-using namespace std;
+#pragma once
 
 /*
     dsu
