@@ -1,8 +1,5 @@
 #pragma once
 
-/*
-    dsu
-*/
 struct dsu {
     vector<int> data;
 
@@ -38,3 +35,7 @@ struct dsu {
         return ret;
     }
 };
+/*
+ * @brief dsu (disjoint set union)
+ * @docs docs/dsu.md
+ */
