@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: dsu_potential.hpp
-    title: dsu_potential.hpp
+    title: "\u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D UnionFind"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -42,15 +42,17 @@ data:
     \        }\n        for (int i = 0; i < _n; i++) {\n            ret[leaders[i]].push_back(i);\n\
     \        }\n        ret.erase(std::remove_if(ret.begin(), ret.end(), [&](const\
     \ std::vector<int>& v) { return v.empty(); }), ret.end());\n\n        return ret;\n\
-    \    }\n};\n#line 7 \"verify/dsu_potential.test.cpp\"\n\nint main() {\n    int\
-    \ n, m;\n    while (true) {\n        cin >> n >> m;\n        if (m == 0) break;\n\
-    \        dsu_potential un(n);\n        while (m--) {\n            char c;\n  \
-    \          cin >> c;\n            if (c == '!') {\n                int a, b, w;\n\
-    \                cin >> a >> b >> w;\n                --a, --b;\n            \
-    \    un.merge(a, b, w);\n            } else {\n                int a, b;\n   \
-    \             cin >> a >> b;\n                --a, --b;\n                if (un.same(a,\
-    \ b)) cout << un.diff(a, b) << '\\n';\n                else cout << \"UNKNOWN\\\
-    n\";\n            }\n        }\n    }\n}\n"
+    \    }\n    /*\n        @brief \u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D\
+    \ UnionFind\n        @docs docs/dsu_potential.md\n    */\n};\n#line 7 \"verify/dsu_potential.test.cpp\"\
+    \n\nint main() {\n    int n, m;\n    while (true) {\n        cin >> n >> m;\n\
+    \        if (m == 0) break;\n        dsu_potential un(n);\n        while (m--)\
+    \ {\n            char c;\n            cin >> c;\n            if (c == '!') {\n\
+    \                int a, b, w;\n                cin >> a >> b >> w;\n         \
+    \       --a, --b;\n                un.merge(a, b, w);\n            } else {\n\
+    \                int a, b;\n                cin >> a >> b;\n                --a,\
+    \ --b;\n                if (un.same(a, b)) cout << un.diff(a, b) << '\\n';\n \
+    \               else cout << \"UNKNOWN\\n\";\n            }\n        }\n    }\n\
+    }\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1330\"\
     \n\n#include <bits/stdc++.h>\nusing namespace std;\n\n#include \"../dsu_potential.hpp\"\
     \n\nint main() {\n    int n, m;\n    while (true) {\n        cin >> n >> m;\n\
@@ -67,7 +69,7 @@ data:
   isVerificationFile: true
   path: verify/dsu_potential.test.cpp
   requiredBy: []
-  timestamp: '2023-09-24 14:44:39+09:00'
+  timestamp: '2023-09-24 14:48:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/dsu_potential.test.cpp
