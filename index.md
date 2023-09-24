@@ -5,7 +5,7 @@ data:
     pages:
     - icon: ':heavy_check_mark:'
       path: dsu.hpp
-      title: dsu.hpp
+      title: dsu (disjoint set union)
   verificationCategories:
   - name: verify
     pages:
