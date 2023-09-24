@@ -3,13 +3,13 @@ data:
   libraryCategories:
   - name: .
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: dsu.hpp
       title: dsu.hpp
   verificationCategories:
   - name: verify
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/dsu.test.cpp
       title: verify/dsu.test.cpp
 layout: toppage

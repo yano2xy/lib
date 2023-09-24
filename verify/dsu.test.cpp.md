@@ -1,12 +1,19 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: dsu.hpp
+    title: dsu.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
-  attributes: {}
+  _verificationStatusIcon: ':heavy_check_mark:'
+  attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/unionfind
+    links:
+    - https://judge.yosupo.jp/problem/unionfind
   bundledCode: "#line 1 \"verify/dsu.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/unionfind\"\
     \n\n#include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"dsu.hpp\"\n\n\
     /*\n    dsu\n*/\nstruct dsu {\n    vector<int> data;\n\n    dsu() = default;\n\
@@ -31,12 +38,13 @@ data:
     \      int t, u, v;\n        cin >> t >> u >> v;\n        if (t == 0) {\n    \
     \        un.merge(u, v);\n        } else {\n            cout << un.same(u, v)\
     \ << '\\n';\n        }\n    }\n}"
-  dependsOn: []
+  dependsOn:
+  - dsu.hpp
   isVerificationFile: true
   path: verify/dsu.test.cpp
   requiredBy: []
-  timestamp: '1970-01-01 00:00:00+00:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2023-09-24 10:35:29+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/dsu.test.cpp
 layout: document
