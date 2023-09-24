@@ -1,41 +1,63 @@
 #pragma once
 
+#include <algorithm>
+#include <cassert>
+#include <vector>
+
 struct dsu {
-    vector<int> data;
+    int _n;
+    std::vector<int> data;
 
-    dsu() = default;
+    dsu() : _n(0) {}
+    dsu(int n) : _n(n), data(n, -1) {}
 
-    explicit dsu(size_t sz) : data(sz, -1) {}
-
-    bool merge(int x, int y) {
-        x = find(x), y = find(y);
+    bool merge(int a, int b) {
+        assert(0 <= a && a < _n);
+        assert(0 <= b && b < _n);
+        int x = leader(a), y = leader(b);
         if (x == y) return false;
-        if (data[x] > data[y]) swap(x, y);
+        if (-data[x] < -data[y]) std::swap(x, y);
         data[x] += data[y];
         data[y] = x;
-        return true;
+        return x;
     }
 
-    int find(int k) {
-        if (data[k] < 0) return k;
-        return data[k] = find(data[k]);
+    int same(int a, int b) {
+        assert(0 <= a && a < _n);
+        assert(0 <= b && b < _n);
+        return leader(a) == leader(b);
     }
 
-    int size(int k) { return -data[find(k)]; }
+    int leader(int a) {
+        assert(0 <= a && a < _n);
+        if (data[a] < 0) return a;
+        return data[a] = leader(data[a]);
+    }
 
-    bool same(int x, int y) { return find(x) == find(y); }
+    int size(int a) {
+        assert(0 <= a && a < _n);
+        return -data[leader(a)];
+    }
 
-    vector<vector<int> > groups() {
-        int n = (int)data.size();
-        vector<vector<int> > ret(n);
-        for (int i = 0; i < n; i++) {
-            ret[find(i)].emplace_back(i);
+    auto gropus() {
+        std::vector<int> leaders(_n), group_size(_n);
+        for (int i = 0; i < _n; i++) {
+            leaders[i] = leader(i);
+            group_size[leaders[i]]++;
         }
-        ret.erase(remove_if(begin(ret), end(ret), [&](const vector<int> &v) { return v.empty(); }), end(ret));
+        std::vector<std::vector<int>> ret(_n);
+        for (int i = 0; i < _n; i++) {
+            ret[i].reserve(group_size[i]);
+        }
+        for (int i = 0; i < _n; i++) {
+            ret[leaders[i]].push_back(i);
+        }
+        ret.erase(std::remove_if(ret.begin(), ret.end(), [&](const std::vector<int>& v) { return v.empty(); }), ret.end());
+
         return ret;
     }
 };
 /*
- * @brief dsu (disjoint set union)
+ * @brief dsu (UnionFind)
  * @docs docs/dsu.md
  */
