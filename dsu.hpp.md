@@ -11,39 +11,53 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/dsu.md
-    document_title: dsu (disjoint set union)
+    document_title: dsu (UnionFind)
     links: []
-  bundledCode: "#line 2 \"dsu.hpp\"\n\nstruct dsu {\n    vector<int> data;\n\n   \
-    \ dsu() = default;\n\n    explicit dsu(size_t sz) : data(sz, -1) {}\n\n    bool\
-    \ merge(int x, int y) {\n        x = find(x), y = find(y);\n        if (x == y)\
-    \ return false;\n        if (data[x] > data[y]) swap(x, y);\n        data[x] +=\
-    \ data[y];\n        data[y] = x;\n        return true;\n    }\n\n    int find(int\
-    \ k) {\n        if (data[k] < 0) return k;\n        return data[k] = find(data[k]);\n\
-    \    }\n\n    int size(int k) { return -data[find(k)]; }\n\n    bool same(int\
-    \ x, int y) { return find(x) == find(y); }\n\n    vector<vector<int> > groups()\
-    \ {\n        int n = (int)data.size();\n        vector<vector<int> > ret(n);\n\
-    \        for (int i = 0; i < n; i++) {\n            ret[find(i)].emplace_back(i);\n\
-    \        }\n        ret.erase(remove_if(begin(ret), end(ret), [&](const vector<int>\
-    \ &v) { return v.empty(); }), end(ret));\n        return ret;\n    }\n};\n/*\n\
-    \ * @brief dsu (disjoint set union)\n * @docs docs/dsu.md\n */\n"
-  code: "#pragma once\n\nstruct dsu {\n    vector<int> data;\n\n    dsu() = default;\n\
-    \n    explicit dsu(size_t sz) : data(sz, -1) {}\n\n    bool merge(int x, int y)\
-    \ {\n        x = find(x), y = find(y);\n        if (x == y) return false;\n  \
-    \      if (data[x] > data[y]) swap(x, y);\n        data[x] += data[y];\n     \
-    \   data[y] = x;\n        return true;\n    }\n\n    int find(int k) {\n     \
-    \   if (data[k] < 0) return k;\n        return data[k] = find(data[k]);\n    }\n\
-    \n    int size(int k) { return -data[find(k)]; }\n\n    bool same(int x, int y)\
-    \ { return find(x) == find(y); }\n\n    vector<vector<int> > groups() {\n    \
-    \    int n = (int)data.size();\n        vector<vector<int> > ret(n);\n       \
-    \ for (int i = 0; i < n; i++) {\n            ret[find(i)].emplace_back(i);\n \
-    \       }\n        ret.erase(remove_if(begin(ret), end(ret), [&](const vector<int>\
-    \ &v) { return v.empty(); }), end(ret));\n        return ret;\n    }\n};\n/*\n\
-    \ * @brief dsu (disjoint set union)\n * @docs docs/dsu.md\n */"
+  bundledCode: "#line 2 \"dsu.hpp\"\n\n#include <algorithm>\n#include <cassert>\n\
+    #include <vector>\n\nstruct dsu {\n    int _n;\n    std::vector<int> data;\n\n\
+    \    dsu() : _n(0) {}\n    dsu(int n) : _n(n), data(n, -1) {}\n\n    bool merge(int\
+    \ a, int b) {\n        assert(0 <= a && a < _n);\n        assert(0 <= b && b <\
+    \ _n);\n        int x = leader(a), y = leader(b);\n        if (x == y) return\
+    \ false;\n        if (-data[x] < -data[y]) std::swap(x, y);\n        data[x] +=\
+    \ data[y];\n        data[y] = x;\n        return x;\n    }\n\n    int same(int\
+    \ a, int b) {\n        assert(0 <= a && a < _n);\n        assert(0 <= b && b <\
+    \ _n);\n        return leader(a) == leader(b);\n    }\n\n    int leader(int a)\
+    \ {\n        assert(0 <= a && a < _n);\n        if (data[a] < 0) return a;\n \
+    \       return data[a] = leader(data[a]);\n    }\n\n    int size(int a) {\n  \
+    \      assert(0 <= a && a < _n);\n        return -data[leader(a)];\n    }\n\n\
+    \    auto gropus() {\n        std::vector<int> leaders(_n), group_size(_n);\n\
+    \        for (int i = 0; i < _n; i++) {\n            leaders[i] = leader(i);\n\
+    \            group_size[leaders[i]]++;\n        }\n        std::vector<std::vector<int>>\
+    \ ret(_n);\n        for (int i = 0; i < _n; i++) {\n            ret[i].reserve(group_size[i]);\n\
+    \        }\n        for (int i = 0; i < _n; i++) {\n            ret[leaders[i]].push_back(i);\n\
+    \        }\n        ret.erase(std::remove_if(ret.begin(), ret.end(), [&](const\
+    \ std::vector<int>& v) { return v.empty(); }), ret.end());\n\n        return ret;\n\
+    \    }\n};\n/*\n * @brief dsu (UnionFind)\n * @docs docs/dsu.md\n */\n"
+  code: "#pragma once\n\n#include <algorithm>\n#include <cassert>\n#include <vector>\n\
+    \nstruct dsu {\n    int _n;\n    std::vector<int> data;\n\n    dsu() : _n(0) {}\n\
+    \    dsu(int n) : _n(n), data(n, -1) {}\n\n    bool merge(int a, int b) {\n  \
+    \      assert(0 <= a && a < _n);\n        assert(0 <= b && b < _n);\n        int\
+    \ x = leader(a), y = leader(b);\n        if (x == y) return false;\n        if\
+    \ (-data[x] < -data[y]) std::swap(x, y);\n        data[x] += data[y];\n      \
+    \  data[y] = x;\n        return x;\n    }\n\n    int same(int a, int b) {\n  \
+    \      assert(0 <= a && a < _n);\n        assert(0 <= b && b < _n);\n        return\
+    \ leader(a) == leader(b);\n    }\n\n    int leader(int a) {\n        assert(0\
+    \ <= a && a < _n);\n        if (data[a] < 0) return a;\n        return data[a]\
+    \ = leader(data[a]);\n    }\n\n    int size(int a) {\n        assert(0 <= a &&\
+    \ a < _n);\n        return -data[leader(a)];\n    }\n\n    auto gropus() {\n \
+    \       std::vector<int> leaders(_n), group_size(_n);\n        for (int i = 0;\
+    \ i < _n; i++) {\n            leaders[i] = leader(i);\n            group_size[leaders[i]]++;\n\
+    \        }\n        std::vector<std::vector<int>> ret(_n);\n        for (int i\
+    \ = 0; i < _n; i++) {\n            ret[i].reserve(group_size[i]);\n        }\n\
+    \        for (int i = 0; i < _n; i++) {\n            ret[leaders[i]].push_back(i);\n\
+    \        }\n        ret.erase(std::remove_if(ret.begin(), ret.end(), [&](const\
+    \ std::vector<int>& v) { return v.empty(); }), ret.end());\n\n        return ret;\n\
+    \    }\n};\n/*\n * @brief dsu (UnionFind)\n * @docs docs/dsu.md\n */"
   dependsOn: []
   isVerificationFile: false
   path: dsu.hpp
   requiredBy: []
-  timestamp: '2023-09-24 11:38:44+09:00'
+  timestamp: '2023-09-24 12:47:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/dsu.test.cpp
@@ -52,30 +66,17 @@ layout: document
 redirect_from:
 - /library/dsu.hpp
 - /library/dsu.hpp.html
-title: dsu (disjoint set union)
+title: dsu (UnionFind)
 ---
-# DSU
-
-無向グラフに対して、
-
-- 辺の追加
-- $2$ 頂点が連結かの判定
-
-をならし $O(\alpha(n))$ 時間で処理することが出来ます。
-
-また、内部的に各連結成分ごとに代表となる頂点を $1$ つ持っています。辺の追加により連結成分がマージされる時、新たな代表元は元の連結成分の代表元のうちどちらかになります。
+# dsu (UnionFind)
 
 ## コンストラクタ
 
 ```cpp
-dsu d(int n)
+dsu un(int n)
 ```
 
-- $n$ 頂点 $0$ 辺の無向グラフを作ります。
-
-**制約**
-
-- $0 \leq n \leq 10^8$
+- $n$ 頂点 $0$ 辺の無向グラフを作る。
 
 **計算量**
 
@@ -84,17 +85,10 @@ dsu d(int n)
 ## merge
 
 ```cpp
-int d.merge(int a, int b)
+int un.merge(int a, int b)
 ```
 
-辺 $(a, b)$ を足します。
-
-$a, b$ が連結だった場合はその代表元、非連結だった場合は新たな代表元を返します。
-
-**制約**
-
-- $0 \leq a < n$
-- $0 \leq b < n$
+辺 $(a, b)$ を追加して、新しい代表元を返す。
 
 **計算量**
 
@@ -103,15 +97,10 @@ $a, b$ が連結だった場合はその代表元、非連結だった場合は�
 ## same
 
 ```cpp
-bool d.same(int a, int b)
+bool un.same(int a, int b)
 ```
 
-頂点 $a, b$ が連結かどうかを返します。
-
-**制約**
-
-- $0 \leq a < n$
-- $0 \leq b < n$
+頂点 $a, b$ が連結かどうかを判定する。
 
 **計算量**
 
@@ -120,14 +109,10 @@ bool d.same(int a, int b)
 ## leader
 
 ```cpp
-int d.leader(int a)
+int un.leader(int a)
 ```
 
-頂点 $a$ の属する連結成分の代表元を返します。
-
-**制約**
-
-- $0 \leq a < n$
+頂点 $a$ の属する連結成分の代表元を返す。
 
 **計算量**
 
@@ -136,14 +121,10 @@ int d.leader(int a)
 ## size
 
 ```cpp
-int d.size(int a)
+int un.size(int a)
 ```
 
-頂点 $a$ の属する連結成分のサイズを返します。
-
-**制約**
-
-- $0 \leq a < n$
+頂点 $a$ の属する連結成分のサイズを返す。
 
 **計算量**
 
@@ -152,13 +133,13 @@ int d.size(int a)
 ## groups
 
 ```cpp
-vector<vector<int>> d.groups()
+vector<vector<int>> un.groups()
 ```
 
-グラフを連結成分に分け、その情報を返します。
+各連結成分を返す。
 
-返り値は「「一つの連結成分の頂点番号のリスト」のリスト」です。
-(内側外側限らず)vector内でどの順番で頂点が格納されているかは未定義です。
+返り値は「「一つの連結成分の頂点番号のリスト」のリスト」。
+(内側外側限らず)vector内でどの順番で頂点が格納されているかは未定義。
 
 **計算量**
 
