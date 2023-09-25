@@ -59,7 +59,7 @@ template <typename T>
 std::vector<T> multiply_sparse(const std::vector<T> &f, std::vector<std::pair<int, T>> g) {
     int n = (int)f.size();
     std::vector<T> ret(n);
-    for (auto &[d, c] : g) {
+    for (auto &&[d, c] : g) {
         for (int i = 0; i + d < n; i++) {
             ret[i + d] += f[i] * c;
         }
@@ -71,18 +71,19 @@ std::vector<T> multiply_sparse(const std::vector<T> &f, std::vector<std::pair<in
 // gの定数項は非零であること
 template <typename T>
 std::vector<T> divide_sparse(const std::vector<T> &f, std::vector<std::pair<int, T>> g) {
-    assert(!g.empty() && g.front().first == 0 && g.front().second != 0);
+    assert(!g.empty() && g.front().first == 0 && g.front().second != T(0));
     int n = (int)f.size(), m = (int)g.size();
     std::vector<T> ret(f.begin(), f.end());
-    int d0 = g.front().first, c0 = g.front().second;
+    T c0inv = T(1) / g.front().second;
     for (int i = 0; i < n; i++)
-        ret[i] /= c0;
+        ret[i] *= c0inv;
     if ((int)g.size() == 1) return ret;
-    for (auto &[d, c] : g)
-        c /= c0;
+    for (auto &&[d, c] : g)
+        c *= c0inv;
     int d1 = g[1].first;
     for (int i = 0; i + d1 < n; ++i) {
-        for (auto [d, c] : g) {
+        for (int j = 1; j < m; ++j) {
+            auto &&[d, c] = g[j];
             if (i + d >= n) break;
             ret[i + d] -= ret[i] * c;
         }
