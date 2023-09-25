@@ -38,31 +38,32 @@ data:
     \                ret[i + j] += f[i] * g[j];\n    }\n    return ret;\n}\n\n// F*g\
     \ (F: fps, g: sparse fps)\ntemplate <typename T>\nstd::vector<T> multiply_sparse(const\
     \ std::vector<T> &f, std::vector<std::pair<int, T>> g) {\n    int n = (int)f.size();\n\
-    \    std::vector<T> ret(n);\n    for (auto &[d, c] : g) {\n        for (int i\
+    \    std::vector<T> ret(n);\n    for (auto &&[d, c] : g) {\n        for (int i\
     \ = 0; i + d < n; i++) {\n            ret[i + d] += f[i] * c;\n        }\n   \
     \ }\n    return ret;\n}\n\n// F/g (F: fps, g: sparse fps)\n// g\u306E\u5B9A\u6570\
     \u9805\u306F\u975E\u96F6\u3067\u3042\u308B\u3053\u3068\ntemplate <typename T>\n\
     std::vector<T> divide_sparse(const std::vector<T> &f, std::vector<std::pair<int,\
     \ T>> g) {\n    assert(!g.empty() && g.front().first == 0 && g.front().second\
-    \ != 0);\n    int n = (int)f.size(), m = (int)g.size();\n    std::vector<T> ret(f.begin(),\
-    \ f.end());\n    int d0 = g.front().first, c0 = g.front().second;\n    for (int\
-    \ i = 0; i < n; i++)\n        ret[i] /= c0;\n    if ((int)g.size() == 1) return\
-    \ ret;\n    for (auto &[d, c] : g)\n        c /= c0;\n    int d1 = g[1].first;\n\
-    \    for (int i = 0; i + d1 < n; ++i) {\n        for (auto [d, c] : g) {\n   \
-    \         if (i + d >= n) break;\n            ret[i + d] -= ret[i] * c;\n    \
-    \    }\n    }\n    return ret;\n}\n\ntemplate <typename T>\nstruct FormalPowerSeries\
-    \ : std::vector<T> {\n    using std::vector<T>::vector;\n    using FPS = FormalPowerSeries;\n\
-    \n    bool is_ntt_mod() const {\n        if (typeid(T) == typeid(atcoder::modint998244353))\
-    \ return true;\n        return false;\n    }\n\n    bool is_arbitrary_mod() const\
-    \ {\n        if (typeid(T) == typeid(atcoder::modint1000000007)) return true;\n\
-    \        return false;\n    }\n\n    // \u6700\u9AD8\u6B21\u6570\u306E\u4FC2\u6570\
-    \u3092\u975E\u96F6\u306B\u3059\u308B\n    void shrink() {\n        while (this->size()\
-    \ && this->back() == T(0))\n            this->pop_back();\n    }\n\n    // x\u3092\
-    \u4EE3\u5165\u3057\u305F\u5024\u3092\u6C42\u3081\u308B\n    T eval(T x) const\
-    \ {\n        T r = 0, w = 1;\n        for (auto &v : *this)\n            r +=\
-    \ w * v, w *= x;\n        return r;\n    }\n\n    // \u4FC2\u6570\u306E\u6F14\u7B97\
-    \n\n    FPS operator+=(const T &a) {\n        if (this->empty()) this->resize(1);\n\
-    \        (*this)[0] += a;\n        return *this;\n    }\n\n    FPS operator-=(const\
+    \ != T(0));\n    int n = (int)f.size(), m = (int)g.size();\n    std::vector<T>\
+    \ ret(f.begin(), f.end());\n    T c0inv = T(1) / g.front().second;\n    for (int\
+    \ i = 0; i < n; i++)\n        ret[i] *= c0inv;\n    if ((int)g.size() == 1) return\
+    \ ret;\n    for (auto &&[d, c] : g)\n        c *= c0inv;\n    int d1 = g[1].first;\n\
+    \    for (int i = 0; i + d1 < n; ++i) {\n        for (int j = 1; j < m; ++j) {\n\
+    \            auto &&[d, c] = g[j];\n            if (i + d >= n) break;\n     \
+    \       ret[i + d] -= ret[i] * c;\n        }\n    }\n    return ret;\n}\n\ntemplate\
+    \ <typename T>\nstruct FormalPowerSeries : std::vector<T> {\n    using std::vector<T>::vector;\n\
+    \    using FPS = FormalPowerSeries;\n\n    bool is_ntt_mod() const {\n       \
+    \ if (typeid(T) == typeid(atcoder::modint998244353)) return true;\n        return\
+    \ false;\n    }\n\n    bool is_arbitrary_mod() const {\n        if (typeid(T)\
+    \ == typeid(atcoder::modint1000000007)) return true;\n        return false;\n\
+    \    }\n\n    // \u6700\u9AD8\u6B21\u6570\u306E\u4FC2\u6570\u3092\u975E\u96F6\u306B\
+    \u3059\u308B\n    void shrink() {\n        while (this->size() && this->back()\
+    \ == T(0))\n            this->pop_back();\n    }\n\n    // x\u3092\u4EE3\u5165\
+    \u3057\u305F\u5024\u3092\u6C42\u3081\u308B\n    T eval(T x) const {\n        T\
+    \ r = 0, w = 1;\n        for (auto &v : *this)\n            r += w * v, w *= x;\n\
+    \        return r;\n    }\n\n    // \u4FC2\u6570\u306E\u6F14\u7B97\n\n    FPS\
+    \ operator+=(const T &a) {\n        if (this->empty()) this->resize(1);\n    \
+    \    (*this)[0] += a;\n        return *this;\n    }\n\n    FPS operator-=(const\
     \ T &a) { return *this += (-a); }\n\n    FPS operator*=(const T &a) {\n      \
     \  for (int k = 0; k < (int)this->size(); k++)\n            (*this)[k] *= a;\n\
     \        return *this;\n    }\n\n    // \u6F14\u7B97 (fps vs fps)\n\n    FPS operator-()\
@@ -134,31 +135,31 @@ data:
     \    }\n    return ret;\n}\n\n// F*g (F: fps, g: sparse fps)\ntemplate <typename\
     \ T>\nstd::vector<T> multiply_sparse(const std::vector<T> &f, std::vector<std::pair<int,\
     \ T>> g) {\n    int n = (int)f.size();\n    std::vector<T> ret(n);\n    for (auto\
-    \ &[d, c] : g) {\n        for (int i = 0; i + d < n; i++) {\n            ret[i\
+    \ &&[d, c] : g) {\n        for (int i = 0; i + d < n; i++) {\n            ret[i\
     \ + d] += f[i] * c;\n        }\n    }\n    return ret;\n}\n\n// F/g (F: fps, g:\
     \ sparse fps)\n// g\u306E\u5B9A\u6570\u9805\u306F\u975E\u96F6\u3067\u3042\u308B\
     \u3053\u3068\ntemplate <typename T>\nstd::vector<T> divide_sparse(const std::vector<T>\
     \ &f, std::vector<std::pair<int, T>> g) {\n    assert(!g.empty() && g.front().first\
-    \ == 0 && g.front().second != 0);\n    int n = (int)f.size(), m = (int)g.size();\n\
-    \    std::vector<T> ret(f.begin(), f.end());\n    int d0 = g.front().first, c0\
-    \ = g.front().second;\n    for (int i = 0; i < n; i++)\n        ret[i] /= c0;\n\
-    \    if ((int)g.size() == 1) return ret;\n    for (auto &[d, c] : g)\n       \
-    \ c /= c0;\n    int d1 = g[1].first;\n    for (int i = 0; i + d1 < n; ++i) {\n\
-    \        for (auto [d, c] : g) {\n            if (i + d >= n) break;\n       \
-    \     ret[i + d] -= ret[i] * c;\n        }\n    }\n    return ret;\n}\n\ntemplate\
-    \ <typename T>\nstruct FormalPowerSeries : std::vector<T> {\n    using std::vector<T>::vector;\n\
-    \    using FPS = FormalPowerSeries;\n\n    bool is_ntt_mod() const {\n       \
-    \ if (typeid(T) == typeid(atcoder::modint998244353)) return true;\n        return\
-    \ false;\n    }\n\n    bool is_arbitrary_mod() const {\n        if (typeid(T)\
-    \ == typeid(atcoder::modint1000000007)) return true;\n        return false;\n\
-    \    }\n\n    // \u6700\u9AD8\u6B21\u6570\u306E\u4FC2\u6570\u3092\u975E\u96F6\u306B\
-    \u3059\u308B\n    void shrink() {\n        while (this->size() && this->back()\
-    \ == T(0))\n            this->pop_back();\n    }\n\n    // x\u3092\u4EE3\u5165\
-    \u3057\u305F\u5024\u3092\u6C42\u3081\u308B\n    T eval(T x) const {\n        T\
-    \ r = 0, w = 1;\n        for (auto &v : *this)\n            r += w * v, w *= x;\n\
-    \        return r;\n    }\n\n    // \u4FC2\u6570\u306E\u6F14\u7B97\n\n    FPS\
-    \ operator+=(const T &a) {\n        if (this->empty()) this->resize(1);\n    \
-    \    (*this)[0] += a;\n        return *this;\n    }\n\n    FPS operator-=(const\
+    \ == 0 && g.front().second != T(0));\n    int n = (int)f.size(), m = (int)g.size();\n\
+    \    std::vector<T> ret(f.begin(), f.end());\n    T c0inv = T(1) / g.front().second;\n\
+    \    for (int i = 0; i < n; i++)\n        ret[i] *= c0inv;\n    if ((int)g.size()\
+    \ == 1) return ret;\n    for (auto &&[d, c] : g)\n        c *= c0inv;\n    int\
+    \ d1 = g[1].first;\n    for (int i = 0; i + d1 < n; ++i) {\n        for (int j\
+    \ = 1; j < m; ++j) {\n            auto &&[d, c] = g[j];\n            if (i + d\
+    \ >= n) break;\n            ret[i + d] -= ret[i] * c;\n        }\n    }\n    return\
+    \ ret;\n}\n\ntemplate <typename T>\nstruct FormalPowerSeries : std::vector<T>\
+    \ {\n    using std::vector<T>::vector;\n    using FPS = FormalPowerSeries;\n\n\
+    \    bool is_ntt_mod() const {\n        if (typeid(T) == typeid(atcoder::modint998244353))\
+    \ return true;\n        return false;\n    }\n\n    bool is_arbitrary_mod() const\
+    \ {\n        if (typeid(T) == typeid(atcoder::modint1000000007)) return true;\n\
+    \        return false;\n    }\n\n    // \u6700\u9AD8\u6B21\u6570\u306E\u4FC2\u6570\
+    \u3092\u975E\u96F6\u306B\u3059\u308B\n    void shrink() {\n        while (this->size()\
+    \ && this->back() == T(0))\n            this->pop_back();\n    }\n\n    // x\u3092\
+    \u4EE3\u5165\u3057\u305F\u5024\u3092\u6C42\u3081\u308B\n    T eval(T x) const\
+    \ {\n        T r = 0, w = 1;\n        for (auto &v : *this)\n            r +=\
+    \ w * v, w *= x;\n        return r;\n    }\n\n    // \u4FC2\u6570\u306E\u6F14\u7B97\
+    \n\n    FPS operator+=(const T &a) {\n        if (this->empty()) this->resize(1);\n\
+    \        (*this)[0] += a;\n        return *this;\n    }\n\n    FPS operator-=(const\
     \ T &a) { return *this += (-a); }\n\n    FPS operator*=(const T &a) {\n      \
     \  for (int k = 0; k < (int)this->size(); k++)\n            (*this)[k] *= a;\n\
     \        return *this;\n    }\n\n    // \u6F14\u7B97 (fps vs fps)\n\n    FPS operator-()\
@@ -204,7 +205,7 @@ data:
   isVerificationFile: false
   path: fps.hpp
   requiredBy: []
-  timestamp: '2023-09-25 13:05:58+09:00'
+  timestamp: '2023-09-25 14:31:32+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: fps.hpp
