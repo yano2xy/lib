@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: verify/rerooting.cpp
-    title: verify/rerooting.cpp
-  _extendedVerifiedWith: []
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/rerooting.test.cpp
+    title: verify/rerooting.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/rerooting.md
     document_title: rerooting
@@ -72,11 +72,11 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: rerooting.hpp
-  requiredBy:
-  - verify/rerooting.cpp
+  requiredBy: []
   timestamp: '2023-10-12 22:54:43+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/rerooting.test.cpp
 documentation_of: rerooting.hpp
 layout: document
 redirect_from:

@@ -1,18 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: rerooting.hpp
     title: rerooting
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B
     links:
     - http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B
-  bundledCode: "#line 1 \"verify/rerooting.cpp\"\n#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B\"\
+  bundledCode: "#line 1 \"verify/rerooting.test.cpp\"\n#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B\"\
     \n\n#include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"rerooting.hpp\"\
     \n\n#line 5 \"rerooting.hpp\"\n\ntemplate <typename S>\nstruct rerooting {\n \
     \  private:\n    int n;\n    std::vector<std::vector<int>> G;\n    std::vector<std::vector<S>>\
@@ -40,7 +42,7 @@ data:
     \ n; ++i) {\n            S v = id();\n            for (int j = 0; j < G[i].size();\
     \ ++j) {\n                v = merge(v, f(dp[i][j], G[i][j], i));\n           \
     \ }\n            ret[i] = g(v, i);\n        }\n        return ret;\n    }\n};\n\
-    /*\n * @brief rerooting\n * @docs docs/rerooting.md\n */\n#line 7 \"verify/rerooting.cpp\"\
+    /*\n * @brief rerooting\n * @docs docs/rerooting.md\n */\n#line 7 \"verify/rerooting.test.cpp\"\
     \n\nint main() {\n    int n;\n    cin >> n;\n    map<pair<int, int>, int> es;\n\
     \n    auto f = [&](int x, int pos, int par) -> int { return x + es[{pos, par}];\
     \ };\n    auto merge = [&](int x, int y) -> int { return max(x, y); };\n    auto\
@@ -61,16 +63,16 @@ data:
     \ G.solve();\n    for (auto v : V)\n        cout << v << '\\n';\n}"
   dependsOn:
   - rerooting.hpp
-  isVerificationFile: false
-  path: verify/rerooting.cpp
+  isVerificationFile: true
+  path: verify/rerooting.test.cpp
   requiredBy: []
-  timestamp: '2023-10-12 22:54:43+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2023-10-12 23:05:16+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/rerooting.cpp
+documentation_of: verify/rerooting.test.cpp
 layout: document
 redirect_from:
-- /library/verify/rerooting.cpp
-- /library/verify/rerooting.cpp.html
-title: verify/rerooting.cpp
+- /verify/verify/rerooting.test.cpp
+- /verify/verify/rerooting.test.cpp.html
+title: verify/rerooting.test.cpp
 ---

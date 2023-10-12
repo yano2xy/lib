@@ -12,14 +12,9 @@ data:
     - icon: ':warning:'
       path: fps.hpp
       title: fps.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: rerooting.hpp
       title: rerooting
-  - name: verify
-    pages:
-    - icon: ':warning:'
-      path: verify/rerooting.cpp
-      title: verify/rerooting.cpp
   verificationCategories:
   - name: verify
     pages:
@@ -29,5 +24,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/dsu_potential.test.cpp
       title: verify/dsu_potential.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/rerooting.test.cpp
+      title: verify/rerooting.test.cpp
 layout: toppage
 ---
