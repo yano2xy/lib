@@ -12,6 +12,14 @@ data:
     - icon: ':warning:'
       path: fps.hpp
       title: fps.hpp
+    - icon: ':warning:'
+      path: rerooting.hpp
+      title: rerooting
+  - name: verify
+    pages:
+    - icon: ':warning:'
+      path: verify/rerooting.cpp
+      title: verify/rerooting.cpp
   verificationCategories:
   - name: verify
     pages:
