@@ -3,6 +3,9 @@ data:
   libraryCategories:
   - name: .
     pages:
+    - icon: ':warning:'
+      path: cht.hpp
+      title: cht (Convex Hull Trick)
     - icon: ':heavy_check_mark:'
       path: dsu.hpp
       title: dsu (UnionFind)
