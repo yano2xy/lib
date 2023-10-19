@@ -120,6 +120,13 @@ struct FormalPowerSeries : std::vector<T> {
         return r;
     }
 
+    // 前sz項を取り出す
+    FPS pre(int sz) const {
+        FPS ret(begin(*this), begin(*this) + std::min((int)this->size(), sz));
+        if ((int)ret.size() < sz) ret.resize(sz);
+        return ret;
+    }
+
     // 係数の演算
 
     FPS operator+=(const T &a) {
@@ -212,10 +219,11 @@ struct FormalPowerSeries : std::vector<T> {
 
     FPS inv(int deg = -1) const {
         assert((*this)[0] != T(0));
-        if (deg == -1) deg = (*this).size();
-        FPS ret({T(1) / (*this)[0]});
+        if (deg == -1) deg = (int)(*this).size();
+        FPS ret(deg);
+        ret[0] = T(1) / (*this)[0];
         for (int i = 1; i < deg; i <<= 1)
-            ret = (ret + ret - ret * ret * (*this).pre(i << 1)).pre(i << 1);
+            ret = ret + ret - ret * ret * (*this).pre(i << 1);
         return ret.pre(deg);
     }
 };
