@@ -61,13 +61,16 @@ data:
     \ == T(0))\n            this->pop_back();\n    }\n\n    // x\u3092\u4EE3\u5165\
     \u3057\u305F\u5024\u3092\u6C42\u3081\u308B\n    T eval(T x) const {\n        T\
     \ r = 0, w = 1;\n        for (auto &v : *this)\n            r += w * v, w *= x;\n\
-    \        return r;\n    }\n\n    // \u4FC2\u6570\u306E\u6F14\u7B97\n\n    FPS\
-    \ operator+=(const T &a) {\n        if (this->empty()) this->resize(1);\n    \
-    \    (*this)[0] += a;\n        return *this;\n    }\n\n    FPS operator-=(const\
-    \ T &a) { return *this += (-a); }\n\n    FPS operator*=(const T &a) {\n      \
-    \  for (int k = 0; k < (int)this->size(); k++)\n            (*this)[k] *= a;\n\
-    \        return *this;\n    }\n\n    // \u6F14\u7B97 (fps vs fps)\n\n    FPS operator-()\
-    \ const {\n        FPS ret(this->size());\n        for (int i = 0; i < (int)this->size();\
+    \        return r;\n    }\n\n    // \u524Dsz\u9805\u3092\u53D6\u308A\u51FA\u3059\
+    \n    FPS pre(int sz) const {\n        FPS ret(begin(*this), begin(*this) + std::min((int)this->size(),\
+    \ sz));\n        if ((int)ret.size() < sz) ret.resize(sz);\n        return ret;\n\
+    \    }\n\n    // \u4FC2\u6570\u306E\u6F14\u7B97\n\n    FPS operator+=(const T\
+    \ &a) {\n        if (this->empty()) this->resize(1);\n        (*this)[0] += a;\n\
+    \        return *this;\n    }\n\n    FPS operator-=(const T &a) { return *this\
+    \ += (-a); }\n\n    FPS operator*=(const T &a) {\n        for (int k = 0; k <\
+    \ (int)this->size(); k++)\n            (*this)[k] *= a;\n        return *this;\n\
+    \    }\n\n    // \u6F14\u7B97 (fps vs fps)\n\n    FPS operator-() const {\n  \
+    \      FPS ret(this->size());\n        for (int i = 0; i < (int)this->size();\
     \ i++)\n            ret[i] = -(*this)[i];\n        return ret;\n    }\n\n    FPS\
     \ &operator+=(const FPS &f) {\n        int n = (int)this->size(), m = (int)f.size();\n\
     \        for (int i = 0; i < std::min(n, m); i++)\n            (*this)[i] += f[i];\n\
@@ -100,11 +103,11 @@ data:
     \ std::vector<std::pair<int, T>> &g) const { return FPS(*this) *= g; }\n    FPS\
     \ operator/(const std::vector<std::pair<int, T>> &g) const { return FPS(*this)\
     \ /= g; }\n\n    FPS inv(int deg = -1) const {\n        assert((*this)[0] != T(0));\n\
-    \        if (deg == -1) deg = (*this).size();\n        FPS ret({T(1) / (*this)[0]});\n\
-    \        for (int i = 1; i < deg; i <<= 1)\n            ret = (ret + ret - ret\
-    \ * ret * (*this).pre(i << 1)).pre(i << 1);\n        return ret.pre(deg);\n  \
-    \  }\n};\ntemplate <typename mint>\nusing fps = FormalPowerSeries<mint>;\ntemplate\
-    \ <typename mint>\nusing sfps = std::vector<std::pair<int, mint>>;\n"
+    \        if (deg == -1) deg = (int)(*this).size();\n        FPS ret(deg);\n  \
+    \      ret[0] = T(1) / (*this)[0];\n        for (int i = 1; i < deg; i <<= 1)\n\
+    \            ret = ret + ret - ret * ret * (*this).pre(i << 1);\n        return\
+    \ ret.pre(deg);\n    }\n};\ntemplate <typename mint>\nusing fps = FormalPowerSeries<mint>;\n\
+    template <typename mint>\nusing sfps = std::vector<std::pair<int, mint>>;\n"
   code: "#pragma once\n\n#include <atcoder/all>\n#include <vector>\n\ntemplate <typename\
     \ mint>\nstd::vector<mint> multiply_garner(const std::vector<mint> &f, const std::vector<mint>\
     \ &g) {\n    int n = (int)f.size(), m = (int)g.size();\n    if (!n || !m) return\
@@ -157,8 +160,11 @@ data:
     \ && this->back() == T(0))\n            this->pop_back();\n    }\n\n    // x\u3092\
     \u4EE3\u5165\u3057\u305F\u5024\u3092\u6C42\u3081\u308B\n    T eval(T x) const\
     \ {\n        T r = 0, w = 1;\n        for (auto &v : *this)\n            r +=\
-    \ w * v, w *= x;\n        return r;\n    }\n\n    // \u4FC2\u6570\u306E\u6F14\u7B97\
-    \n\n    FPS operator+=(const T &a) {\n        if (this->empty()) this->resize(1);\n\
+    \ w * v, w *= x;\n        return r;\n    }\n\n    // \u524Dsz\u9805\u3092\u53D6\
+    \u308A\u51FA\u3059\n    FPS pre(int sz) const {\n        FPS ret(begin(*this),\
+    \ begin(*this) + std::min((int)this->size(), sz));\n        if ((int)ret.size()\
+    \ < sz) ret.resize(sz);\n        return ret;\n    }\n\n    // \u4FC2\u6570\u306E\
+    \u6F14\u7B97\n\n    FPS operator+=(const T &a) {\n        if (this->empty()) this->resize(1);\n\
     \        (*this)[0] += a;\n        return *this;\n    }\n\n    FPS operator-=(const\
     \ T &a) { return *this += (-a); }\n\n    FPS operator*=(const T &a) {\n      \
     \  for (int k = 0; k < (int)this->size(); k++)\n            (*this)[k] *= a;\n\
@@ -196,16 +202,16 @@ data:
     \ std::vector<std::pair<int, T>> &g) const { return FPS(*this) *= g; }\n    FPS\
     \ operator/(const std::vector<std::pair<int, T>> &g) const { return FPS(*this)\
     \ /= g; }\n\n    FPS inv(int deg = -1) const {\n        assert((*this)[0] != T(0));\n\
-    \        if (deg == -1) deg = (*this).size();\n        FPS ret({T(1) / (*this)[0]});\n\
-    \        for (int i = 1; i < deg; i <<= 1)\n            ret = (ret + ret - ret\
-    \ * ret * (*this).pre(i << 1)).pre(i << 1);\n        return ret.pre(deg);\n  \
-    \  }\n};\ntemplate <typename mint>\nusing fps = FormalPowerSeries<mint>;\ntemplate\
-    \ <typename mint>\nusing sfps = std::vector<std::pair<int, mint>>;"
+    \        if (deg == -1) deg = (int)(*this).size();\n        FPS ret(deg);\n  \
+    \      ret[0] = T(1) / (*this)[0];\n        for (int i = 1; i < deg; i <<= 1)\n\
+    \            ret = ret + ret - ret * ret * (*this).pre(i << 1);\n        return\
+    \ ret.pre(deg);\n    }\n};\ntemplate <typename mint>\nusing fps = FormalPowerSeries<mint>;\n\
+    template <typename mint>\nusing sfps = std::vector<std::pair<int, mint>>;"
   dependsOn: []
   isVerificationFile: false
   path: fps.hpp
   requiredBy: []
-  timestamp: '2023-09-25 14:31:32+09:00'
+  timestamp: '2023-10-20 01:27:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: fps.hpp
