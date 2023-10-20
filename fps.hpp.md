@@ -103,11 +103,12 @@ data:
     \ std::vector<std::pair<int, T>> &g) const { return FPS(*this) *= g; }\n    FPS\
     \ operator/(const std::vector<std::pair<int, T>> &g) const { return FPS(*this)\
     \ /= g; }\n\n    FPS inv(int deg = -1) const {\n        assert((*this)[0] != T(0));\n\
-    \        if (deg == -1) deg = (int)(*this).size();\n        FPS ret(deg);\n  \
-    \      ret[0] = T(1) / (*this)[0];\n        for (int i = 1; i < deg; i <<= 1)\n\
-    \            ret = ret + ret - ret * ret * (*this).pre(i << 1);\n        return\
-    \ ret.pre(deg);\n    }\n};\ntemplate <typename mint>\nusing fps = FormalPowerSeries<mint>;\n\
-    template <typename mint>\nusing sfps = std::vector<std::pair<int, mint>>;\n"
+    \        if (deg == -1) deg = (int)(*this).size();\n        FPS ret({T(1) / (*this)[0]});\n\
+    \        for (int i = 1; i < deg; i <<= 1) {\n            ret.resize(i << 1);\n\
+    \            ret = ret + ret - ret * ret * (*this).pre(i << 1);\n        }\n \
+    \       ret.resize(deg);\n        return ret;\n    }\n};\ntemplate <typename mint>\n\
+    using fps = FormalPowerSeries<mint>;\ntemplate <typename mint>\nusing sfps = std::vector<std::pair<int,\
+    \ mint>>;\n"
   code: "#pragma once\n\n#include <atcoder/all>\n#include <vector>\n\ntemplate <typename\
     \ mint>\nstd::vector<mint> multiply_garner(const std::vector<mint> &f, const std::vector<mint>\
     \ &g) {\n    int n = (int)f.size(), m = (int)g.size();\n    if (!n || !m) return\
@@ -202,16 +203,17 @@ data:
     \ std::vector<std::pair<int, T>> &g) const { return FPS(*this) *= g; }\n    FPS\
     \ operator/(const std::vector<std::pair<int, T>> &g) const { return FPS(*this)\
     \ /= g; }\n\n    FPS inv(int deg = -1) const {\n        assert((*this)[0] != T(0));\n\
-    \        if (deg == -1) deg = (int)(*this).size();\n        FPS ret(deg);\n  \
-    \      ret[0] = T(1) / (*this)[0];\n        for (int i = 1; i < deg; i <<= 1)\n\
-    \            ret = ret + ret - ret * ret * (*this).pre(i << 1);\n        return\
-    \ ret.pre(deg);\n    }\n};\ntemplate <typename mint>\nusing fps = FormalPowerSeries<mint>;\n\
-    template <typename mint>\nusing sfps = std::vector<std::pair<int, mint>>;"
+    \        if (deg == -1) deg = (int)(*this).size();\n        FPS ret({T(1) / (*this)[0]});\n\
+    \        for (int i = 1; i < deg; i <<= 1) {\n            ret.resize(i << 1);\n\
+    \            ret = ret + ret - ret * ret * (*this).pre(i << 1);\n        }\n \
+    \       ret.resize(deg);\n        return ret;\n    }\n};\ntemplate <typename mint>\n\
+    using fps = FormalPowerSeries<mint>;\ntemplate <typename mint>\nusing sfps = std::vector<std::pair<int,\
+    \ mint>>;"
   dependsOn: []
   isVerificationFile: false
   path: fps.hpp
   requiredBy: []
-  timestamp: '2023-10-20 01:27:52+09:00'
+  timestamp: '2023-10-20 09:27:26+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: fps.hpp
