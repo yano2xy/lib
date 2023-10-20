@@ -220,11 +220,13 @@ struct FormalPowerSeries : std::vector<T> {
     FPS inv(int deg = -1) const {
         assert((*this)[0] != T(0));
         if (deg == -1) deg = (int)(*this).size();
-        FPS ret(deg);
-        ret[0] = T(1) / (*this)[0];
-        for (int i = 1; i < deg; i <<= 1)
+        FPS ret({T(1) / (*this)[0]});
+        for (int i = 1; i < deg; i <<= 1) {
+            ret.resize(i << 1);
             ret = ret + ret - ret * ret * (*this).pre(i << 1);
-        return ret.pre(deg);
+        }
+        ret.resize(deg);
+        return ret;
     }
 };
 template <typename mint>
