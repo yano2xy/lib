@@ -217,8 +217,9 @@ struct FormalPowerSeries : std::vector<T> {
     FPS operator*(const std::vector<std::pair<int, T>> &g) const { return FPS(*this) *= g; }
     FPS operator/(const std::vector<std::pair<int, T>> &g) const { return FPS(*this) /= g; }
 
+    // 逆元
     FPS inv(int deg = -1) const {
-        assert((*this)[0] != T(0));
+        assert(!this->empty() && (*this)[0] != T(0));
         if (deg == -1) deg = (int)(*this).size();
         FPS ret({T(1) / (*this)[0]});
         for (int i = 1; i < deg; i <<= 1) {
@@ -227,6 +228,81 @@ struct FormalPowerSeries : std::vector<T> {
         }
         ret.resize(deg);
         return ret;
+    }
+
+    // -----
+    // f が疎な場合の演算
+    // -----
+
+    // 逆元(sparse)
+    FPS inv_sparse(int deg = -1) const {
+        assert(!this->empty() && (*this)[0] != T(0));
+        if (deg == -1) deg = (int)this->size();
+        // sfpsに変換
+        std::vector<std::pair<int, T>> sf;
+        for (int i = 0; i < (int)this->size(); i++) {
+            if ((*this)[i] != T(0)) sf.emplace_back(i, (*this)[i]);
+        }
+        FPS ret(deg);
+        T invf0 = T(1) / (*this)[0];
+        if (deg > 0) ret[0] = invf0;
+        for (int i = 1; i < deg; i++) {
+            for (auto &[j, c] : sf) {
+                if (i < j) break;
+                ret[i] += ret[i - j] * c;
+            }
+            ret[i] *= -invf0;
+        }
+        return ret;
+    }
+
+    // 累乗(sparse) ※ kが負でもOK
+    FPS pow_sparse(long long k, int deg = -1) const {
+        int n = (int)this->size();
+        if (deg == -1) deg = n;
+        if (k == 0) {
+            FPS g(deg);
+            if (deg) g[0] = 1;
+            return g;
+        }
+        int zero = 0;
+        while (zero != n && (*this)[zero] == 0)
+            zero++;
+        if (zero == n || __int128_t(zero) * k >= deg) {
+            return FPS(deg, 0);
+        }
+        if (zero != 0) {
+            FPS suf{this->begin() + zero, this->end()};
+            auto g = suf.pow_sparse(k, deg - zero * k);
+            FPS h(zero * k, 0);
+            copy(g.begin(), g.end(), std::back_inserter(h));
+            return h;
+        }
+
+        int mod = T::mod();
+        static std::vector<T> invs{1, 1};
+        while ((int)invs.size() <= deg) {
+            int i = invs.size();
+            invs.push_back((-invs[mod % i]) * (mod / i));
+        }
+
+        std::vector<std::pair<int, T>> fs;
+        for (int i = 1; i < n; i++) {
+            if ((*this)[i] != 0) fs.emplace_back(i, (*this)[i]);
+        }
+
+        FPS g(deg);
+        g[0] = (k >= 0) ? (*this)[0].pow(k) : (*this)[0].inv().pow(-k);
+        T denom = (*this)[0].inv();
+        k %= T::mod();
+        for (int i = 1; i < deg; i++) {
+            for (auto &[j, c] : fs) {
+                if (i < j) break;
+                g[i] += c * g[i - j] * ((k + 1) * j - i);
+            }
+            g[i] *= denom * invs[i];
+        }
+        return g;
     }
 };
 template <typename mint>
