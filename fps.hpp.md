@@ -102,11 +102,42 @@ data:
     \ FPS &f) const { return FPS(*this) /= f; }\n\n    // fps vs sfps\n    FPS operator*(const\
     \ std::vector<std::pair<int, T>> &g) const { return FPS(*this) *= g; }\n    FPS\
     \ operator/(const std::vector<std::pair<int, T>> &g) const { return FPS(*this)\
-    \ /= g; }\n\n    FPS inv(int deg = -1) const {\n        assert((*this)[0] != T(0));\n\
-    \        if (deg == -1) deg = (int)(*this).size();\n        FPS ret({T(1) / (*this)[0]});\n\
-    \        for (int i = 1; i < deg; i <<= 1) {\n            ret.resize(i << 1);\n\
-    \            ret = ret + ret - ret * ret * (*this).pre(i << 1);\n        }\n \
-    \       ret.resize(deg);\n        return ret;\n    }\n};\ntemplate <typename mint>\n\
+    \ /= g; }\n\n    // \u9006\u5143\n    FPS inv(int deg = -1) const {\n        assert(!this->empty()\
+    \ && (*this)[0] != T(0));\n        if (deg == -1) deg = (int)(*this).size();\n\
+    \        FPS ret({T(1) / (*this)[0]});\n        for (int i = 1; i < deg; i <<=\
+    \ 1) {\n            ret.resize(i << 1);\n            ret = ret + ret - ret * ret\
+    \ * (*this).pre(i << 1);\n        }\n        ret.resize(deg);\n        return\
+    \ ret;\n    }\n\n    // -----\n    // f \u304C\u758E\u306A\u5834\u5408\u306E\u6F14\
+    \u7B97\n    // -----\n\n    // \u9006\u5143(sparse)\n    FPS inv_sparse(int deg\
+    \ = -1) const {\n        assert(!this->empty() && (*this)[0] != T(0));\n     \
+    \   if (deg == -1) deg = (int)this->size();\n        // sfps\u306B\u5909\u63DB\
+    \n        std::vector<std::pair<int, T>> sf;\n        for (int i = 0; i < (int)this->size();\
+    \ i++) {\n            if ((*this)[i] != T(0)) sf.emplace_back(i, (*this)[i]);\n\
+    \        }\n        FPS ret(deg);\n        T invf0 = T(1) / (*this)[0];\n    \
+    \    if (deg > 0) ret[0] = invf0;\n        for (int i = 1; i < deg; i++) {\n \
+    \           for (auto &[j, c] : sf) {\n                if (i < j) break;\n   \
+    \             ret[i] += ret[i - j] * c;\n            }\n            ret[i] *=\
+    \ -invf0;\n        }\n        return ret;\n    }\n\n    // \u7D2F\u4E57(sparse)\
+    \ \u203B k\u304C\u8CA0\u3067\u3082OK\n    FPS pow_sparse(long long k, int deg\
+    \ = -1) const {\n        int n = (int)this->size();\n        if (deg == -1) deg\
+    \ = n;\n        if (k == 0) {\n            FPS g(deg);\n            if (deg) g[0]\
+    \ = 1;\n            return g;\n        }\n        int zero = 0;\n        while\
+    \ (zero != n && (*this)[zero] == 0)\n            zero++;\n        if (zero ==\
+    \ n || __int128_t(zero) * k >= deg) {\n            return FPS(deg, 0);\n     \
+    \   }\n        if (zero != 0) {\n            FPS suf{this->begin() + zero, this->end()};\n\
+    \            auto g = suf.pow_sparse(k, deg - zero * k);\n            FPS h(zero\
+    \ * k, 0);\n            copy(g.begin(), g.end(), std::back_inserter(h));\n   \
+    \         return h;\n        }\n\n        int mod = T::mod();\n        static\
+    \ std::vector<T> invs{1, 1};\n        while ((int)invs.size() <= deg) {\n    \
+    \        int i = invs.size();\n            invs.push_back((-invs[mod % i]) * (mod\
+    \ / i));\n        }\n\n        std::vector<std::pair<int, T>> fs;\n        for\
+    \ (int i = 1; i < n; i++) {\n            if ((*this)[i] != 0) fs.emplace_back(i,\
+    \ (*this)[i]);\n        }\n\n        FPS g(deg);\n        g[0] = (k >= 0) ? (*this)[0].pow(k)\
+    \ : (*this)[0].inv().pow(-k);\n        T denom = (*this)[0].inv();\n        k\
+    \ %= T::mod();\n        for (int i = 1; i < deg; i++) {\n            for (auto\
+    \ &[j, c] : fs) {\n                if (i < j) break;\n                g[i] +=\
+    \ c * g[i - j] * ((k + 1) * j - i);\n            }\n            g[i] *= denom\
+    \ * invs[i];\n        }\n        return g;\n    }\n};\ntemplate <typename mint>\n\
     using fps = FormalPowerSeries<mint>;\ntemplate <typename mint>\nusing sfps = std::vector<std::pair<int,\
     \ mint>>;\n"
   code: "#pragma once\n\n#include <atcoder/all>\n#include <vector>\n\ntemplate <typename\
@@ -202,18 +233,49 @@ data:
     \ FPS &f) const { return FPS(*this) /= f; }\n\n    // fps vs sfps\n    FPS operator*(const\
     \ std::vector<std::pair<int, T>> &g) const { return FPS(*this) *= g; }\n    FPS\
     \ operator/(const std::vector<std::pair<int, T>> &g) const { return FPS(*this)\
-    \ /= g; }\n\n    FPS inv(int deg = -1) const {\n        assert((*this)[0] != T(0));\n\
-    \        if (deg == -1) deg = (int)(*this).size();\n        FPS ret({T(1) / (*this)[0]});\n\
-    \        for (int i = 1; i < deg; i <<= 1) {\n            ret.resize(i << 1);\n\
-    \            ret = ret + ret - ret * ret * (*this).pre(i << 1);\n        }\n \
-    \       ret.resize(deg);\n        return ret;\n    }\n};\ntemplate <typename mint>\n\
+    \ /= g; }\n\n    // \u9006\u5143\n    FPS inv(int deg = -1) const {\n        assert(!this->empty()\
+    \ && (*this)[0] != T(0));\n        if (deg == -1) deg = (int)(*this).size();\n\
+    \        FPS ret({T(1) / (*this)[0]});\n        for (int i = 1; i < deg; i <<=\
+    \ 1) {\n            ret.resize(i << 1);\n            ret = ret + ret - ret * ret\
+    \ * (*this).pre(i << 1);\n        }\n        ret.resize(deg);\n        return\
+    \ ret;\n    }\n\n    // -----\n    // f \u304C\u758E\u306A\u5834\u5408\u306E\u6F14\
+    \u7B97\n    // -----\n\n    // \u9006\u5143(sparse)\n    FPS inv_sparse(int deg\
+    \ = -1) const {\n        assert(!this->empty() && (*this)[0] != T(0));\n     \
+    \   if (deg == -1) deg = (int)this->size();\n        // sfps\u306B\u5909\u63DB\
+    \n        std::vector<std::pair<int, T>> sf;\n        for (int i = 0; i < (int)this->size();\
+    \ i++) {\n            if ((*this)[i] != T(0)) sf.emplace_back(i, (*this)[i]);\n\
+    \        }\n        FPS ret(deg);\n        T invf0 = T(1) / (*this)[0];\n    \
+    \    if (deg > 0) ret[0] = invf0;\n        for (int i = 1; i < deg; i++) {\n \
+    \           for (auto &[j, c] : sf) {\n                if (i < j) break;\n   \
+    \             ret[i] += ret[i - j] * c;\n            }\n            ret[i] *=\
+    \ -invf0;\n        }\n        return ret;\n    }\n\n    // \u7D2F\u4E57(sparse)\
+    \ \u203B k\u304C\u8CA0\u3067\u3082OK\n    FPS pow_sparse(long long k, int deg\
+    \ = -1) const {\n        int n = (int)this->size();\n        if (deg == -1) deg\
+    \ = n;\n        if (k == 0) {\n            FPS g(deg);\n            if (deg) g[0]\
+    \ = 1;\n            return g;\n        }\n        int zero = 0;\n        while\
+    \ (zero != n && (*this)[zero] == 0)\n            zero++;\n        if (zero ==\
+    \ n || __int128_t(zero) * k >= deg) {\n            return FPS(deg, 0);\n     \
+    \   }\n        if (zero != 0) {\n            FPS suf{this->begin() + zero, this->end()};\n\
+    \            auto g = suf.pow_sparse(k, deg - zero * k);\n            FPS h(zero\
+    \ * k, 0);\n            copy(g.begin(), g.end(), std::back_inserter(h));\n   \
+    \         return h;\n        }\n\n        int mod = T::mod();\n        static\
+    \ std::vector<T> invs{1, 1};\n        while ((int)invs.size() <= deg) {\n    \
+    \        int i = invs.size();\n            invs.push_back((-invs[mod % i]) * (mod\
+    \ / i));\n        }\n\n        std::vector<std::pair<int, T>> fs;\n        for\
+    \ (int i = 1; i < n; i++) {\n            if ((*this)[i] != 0) fs.emplace_back(i,\
+    \ (*this)[i]);\n        }\n\n        FPS g(deg);\n        g[0] = (k >= 0) ? (*this)[0].pow(k)\
+    \ : (*this)[0].inv().pow(-k);\n        T denom = (*this)[0].inv();\n        k\
+    \ %= T::mod();\n        for (int i = 1; i < deg; i++) {\n            for (auto\
+    \ &[j, c] : fs) {\n                if (i < j) break;\n                g[i] +=\
+    \ c * g[i - j] * ((k + 1) * j - i);\n            }\n            g[i] *= denom\
+    \ * invs[i];\n        }\n        return g;\n    }\n};\ntemplate <typename mint>\n\
     using fps = FormalPowerSeries<mint>;\ntemplate <typename mint>\nusing sfps = std::vector<std::pair<int,\
     \ mint>>;"
   dependsOn: []
   isVerificationFile: false
   path: fps.hpp
   requiredBy: []
-  timestamp: '2023-10-20 09:27:26+09:00'
+  timestamp: '2023-10-21 15:56:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: fps.hpp
