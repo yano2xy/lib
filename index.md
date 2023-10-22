@@ -15,6 +15,9 @@ data:
     - icon: ':warning:'
       path: fps.hpp
       title: fps.hpp
+    - icon: ':warning:'
+      path: lagrange_interpolation.hpp
+      title: lagrange_interpolation.hpp
     - icon: ':heavy_check_mark:'
       path: rerooting.hpp
       title: rerooting
