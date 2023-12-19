@@ -7,10 +7,15 @@
 template <class T, T (*op)(T, T), T (*e)()>
 struct swag {
     struct prod_stack {
+        bool left;
         std::stack<T> st, prd;
+        prod_stack() : left(false) {}
+        prod_stack(bool left) : left(left) {}
         void push(T x) {
+            T p = prod();
             st.push(x);
-            prd.push(op(x, prod()));
+            if (left) prd.push(op(x, p));
+            else prd.push(op(p, x));
         }
         void pop() {
             assert(!empty());
@@ -21,11 +26,12 @@ struct swag {
             return st.top();
         }
         T prod() { return empty() ? e() : prd.top(); }
-        int size() { return st.size(); }
-        bool empty() { return st.empty(); }
+        int size() { return prd.size(); }
+        bool empty() { return prd.empty(); }
     };
 
     prod_stack front_st, back_st;
+    swag() : front_st(true), back_st(false) {}
     void push(T x) { back_st.push(x); }
     void balance() {
         while (!back_st.empty()) {
