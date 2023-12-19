@@ -21,6 +21,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: rerooting.hpp
       title: rerooting
+    - icon: ':warning:'
+      path: swag.hpp
+      title: SWAG (Sliding Window Aggregation)
   verificationCategories:
   - name: verify
     pages:
