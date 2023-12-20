@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_5_B"
+#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1068"
 
 #include "../lib/segtree_2d.hpp"
 
