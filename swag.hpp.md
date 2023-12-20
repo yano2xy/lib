@@ -75,9 +75,9 @@ title: SWAG (Sliding Window Aggregation)
 
 ## コンストラクタ
 
-```cpp
-swag<S, S (*op)(S, S), S (*e)()>> sw;
-```
+~~~cpp
+swag<S, op, e> sw;
+~~~
 
 - op はモノイド演算
 - e は単位減取得関数
@@ -85,7 +85,7 @@ swag<S, S (*op)(S, S), S (*e)()>> sw;
 ## push
 
 ~~~
-void push(T x)
+void sw.push(T x)
 ~~~
 
 - swの末尾に $x$ を追加する
@@ -93,7 +93,7 @@ void push(T x)
 ## pop
 
 ~~~
-void pop()
+void sw.pop()
 ~~~
 
 - swの先頭の要素を削除する
@@ -101,7 +101,7 @@ void pop()
 ## front
 
 ~~~
-T front()
+T sw.front()
 ~~~
 
 - swの先頭の要素を取得する
@@ -109,7 +109,7 @@ T front()
 ## prod
 
 ~~~
-T prod()
+T sw.prod()
 ~~~
 
 - swの中の要素のモノイド演算の総積を取得する
