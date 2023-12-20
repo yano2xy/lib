@@ -2,5 +2,6 @@
 "verify/dsu.test.cpp": "2023-09-24 12:47:45 +0900",
 "verify/dsu_potential.test.cpp": "2023-09-24 14:48:06 +0900",
 "verify/rerooting.test.cpp": "2023-10-12 23:05:16 +0900",
+"verify/segtree_2d.test.cpp": "2023-12-20 21:56:45 +0900",
 "verify/swag.test.cpp": "2023-12-20 00:00:38 +0900"
 }
