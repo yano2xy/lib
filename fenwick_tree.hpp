@@ -4,7 +4,6 @@
 
 #include <cassert>
 #include <numeric>
-#include <type_traits>
 #include <vector>
 
 template <class T>
