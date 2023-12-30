@@ -93,7 +93,7 @@ struct static_modint {
         _v = (unsigned int)(z % m);
         return *this;
     }
-    constexpr mint& operator/=(mint rhs) { return *this *= rhs.inv(); }
+    constexpr mint& operator/=(mint rhs) { return *this = *this * rhs.inv(); }
 
     constexpr mint operator+() const { return *this; }
     constexpr mint operator-() const { return mint{} - *this; }

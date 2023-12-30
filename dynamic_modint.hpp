@@ -82,12 +82,12 @@ struct dynamic_modint {
         return res;
     }
     mint& operator+=(mint rhs) {
-        if (_v >= mod() - rhs._v) _v -= mod();
+        if (_v >= umod() - rhs._v) _v -= umod();
         _v += rhs._v;
         return *this;
     }
     mint& operator-=(mint rhs) {
-        if (_v < rhs._v) _v += mod();
+        if (_v < rhs._v) _v += umod();
         _v -= rhs._v;
         return *this;
     }
@@ -95,7 +95,7 @@ struct dynamic_modint {
         _v = bt.mul(_v, rhs._v);
         return *this;
     }
-    mint& operator/=(mint rhs) { return *this *= rhs.inv(); }
+    mint& operator/=(mint rhs) { return *this = *this * rhs.inv(); }
 
     mint operator+() const { return *this; }
     mint operator-() const { return mint{} - *this; }
@@ -113,7 +113,7 @@ struct dynamic_modint {
     mint inv() const {
         auto eg = inv_gcd(_v, mod());
         assert(eg.first == 1);
-        return eg.second;
+        return (int)eg.second;
     }
 
     friend mint operator+(const mint& lhs, const mint& rhs) { return mint(lhs) += rhs; }
