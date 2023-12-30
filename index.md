@@ -13,6 +13,9 @@ data:
       path: dsu_potential.hpp
       title: "\u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D UnionFind"
     - icon: ':warning:'
+      path: dynamic_modint.hpp
+      title: dyanamic_modint
+    - icon: ':warning:'
       path: fenwick_tree.hpp
       title: fenwick_tree (Binary Indexed Tree)
     - icon: ':warning:'
