@@ -37,20 +37,20 @@ data:
     \ operator--() { return *this -= 1; }\n    mint operator++(int) {\n        mint\
     \ res = *this;\n        ++*this;\n        return res;\n    }\n    mint operator--(int)\
     \ {\n        mint res = *this;\n        --*this;\n        return res;\n    }\n\
-    \    mint& operator+=(mint rhs) {\n        if (_v >= mod() - rhs._v) _v -= mod();\n\
+    \    mint& operator+=(mint rhs) {\n        if (_v >= umod() - rhs._v) _v -= umod();\n\
     \        _v += rhs._v;\n        return *this;\n    }\n    mint& operator-=(mint\
-    \ rhs) {\n        if (_v < rhs._v) _v += mod();\n        _v -= rhs._v;\n     \
-    \   return *this;\n    }\n    mint& operator*=(mint rhs) {\n        _v = bt.mul(_v,\
+    \ rhs) {\n        if (_v < rhs._v) _v += umod();\n        _v -= rhs._v;\n    \
+    \    return *this;\n    }\n    mint& operator*=(mint rhs) {\n        _v = bt.mul(_v,\
     \ rhs._v);\n        return *this;\n    }\n    mint& operator/=(mint rhs) { return\
-    \ *this *= rhs.inv(); }\n\n    mint operator+() const { return *this; }\n    mint\
-    \ operator-() const { return mint{} - *this; }\n\n    mint pow(unsigned long long\
-    \ n) const {\n        assert(0 <= n);\n        mint x = *this, r = 1;\n      \
-    \  while (n) {\n            if (n & 1) r *= x;\n            x *= x;\n        \
-    \    n >>= 1;\n        }\n        return r;\n    }\n    mint inv() const {\n \
-    \       auto eg = inv_gcd(_v, mod());\n        assert(eg.first == 1);\n      \
-    \  return eg.second;\n    }\n\n    friend mint operator+(const mint& lhs, const\
-    \ mint& rhs) { return mint(lhs) += rhs; }\n    friend mint operator-(const mint&\
-    \ lhs, const mint& rhs) { return mint(lhs) -= rhs; }\n    friend mint operator*(const\
+    \ *this = *this * rhs.inv(); }\n\n    mint operator+() const { return *this; }\n\
+    \    mint operator-() const { return mint{} - *this; }\n\n    mint pow(unsigned\
+    \ long long n) const {\n        assert(0 <= n);\n        mint x = *this, r = 1;\n\
+    \        while (n) {\n            if (n & 1) r *= x;\n            x *= x;\n  \
+    \          n >>= 1;\n        }\n        return r;\n    }\n    mint inv() const\
+    \ {\n        auto eg = inv_gcd(_v, mod());\n        assert(eg.first == 1);\n \
+    \       return (int)eg.second;\n    }\n\n    friend mint operator+(const mint&\
+    \ lhs, const mint& rhs) { return mint(lhs) += rhs; }\n    friend mint operator-(const\
+    \ mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }\n    friend mint operator*(const\
     \ mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }\n    friend mint operator/(const\
     \ mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }\n    friend bool operator==(const\
     \ mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }\n    friend bool operator!=(const\
@@ -85,23 +85,23 @@ data:
     \ operator++(int) {\n        mint res = *this;\n        ++*this;\n        return\
     \ res;\n    }\n    mint operator--(int) {\n        mint res = *this;\n       \
     \ --*this;\n        return res;\n    }\n    mint& operator+=(mint rhs) {\n   \
-    \     if (_v >= mod() - rhs._v) _v -= mod();\n        _v += rhs._v;\n        return\
-    \ *this;\n    }\n    mint& operator-=(mint rhs) {\n        if (_v < rhs._v) _v\
-    \ += mod();\n        _v -= rhs._v;\n        return *this;\n    }\n    mint& operator*=(mint\
-    \ rhs) {\n        _v = bt.mul(_v, rhs._v);\n        return *this;\n    }\n   \
-    \ mint& operator/=(mint rhs) { return *this *= rhs.inv(); }\n\n    mint operator+()\
-    \ const { return *this; }\n    mint operator-() const { return mint{} - *this;\
-    \ }\n\n    mint pow(unsigned long long n) const {\n        assert(0 <= n);\n \
-    \       mint x = *this, r = 1;\n        while (n) {\n            if (n & 1) r\
-    \ *= x;\n            x *= x;\n            n >>= 1;\n        }\n        return\
-    \ r;\n    }\n    mint inv() const {\n        auto eg = inv_gcd(_v, mod());\n \
-    \       assert(eg.first == 1);\n        return eg.second;\n    }\n\n    friend\
-    \ mint operator+(const mint& lhs, const mint& rhs) { return mint(lhs) += rhs;\
-    \ }\n    friend mint operator-(const mint& lhs, const mint& rhs) { return mint(lhs)\
-    \ -= rhs; }\n    friend mint operator*(const mint& lhs, const mint& rhs) { return\
-    \ mint(lhs) *= rhs; }\n    friend mint operator/(const mint& lhs, const mint&\
-    \ rhs) { return mint(lhs) /= rhs; }\n    friend bool operator==(const mint& lhs,\
-    \ const mint& rhs) { return lhs._v == rhs._v; }\n    friend bool operator!=(const\
+    \     if (_v >= umod() - rhs._v) _v -= umod();\n        _v += rhs._v;\n      \
+    \  return *this;\n    }\n    mint& operator-=(mint rhs) {\n        if (_v < rhs._v)\
+    \ _v += umod();\n        _v -= rhs._v;\n        return *this;\n    }\n    mint&\
+    \ operator*=(mint rhs) {\n        _v = bt.mul(_v, rhs._v);\n        return *this;\n\
+    \    }\n    mint& operator/=(mint rhs) { return *this = *this * rhs.inv(); }\n\
+    \n    mint operator+() const { return *this; }\n    mint operator-() const { return\
+    \ mint{} - *this; }\n\n    mint pow(unsigned long long n) const {\n        assert(0\
+    \ <= n);\n        mint x = *this, r = 1;\n        while (n) {\n            if\
+    \ (n & 1) r *= x;\n            x *= x;\n            n >>= 1;\n        }\n    \
+    \    return r;\n    }\n    mint inv() const {\n        auto eg = inv_gcd(_v, mod());\n\
+    \        assert(eg.first == 1);\n        return (int)eg.second;\n    }\n\n   \
+    \ friend mint operator+(const mint& lhs, const mint& rhs) { return mint(lhs) +=\
+    \ rhs; }\n    friend mint operator-(const mint& lhs, const mint& rhs) { return\
+    \ mint(lhs) -= rhs; }\n    friend mint operator*(const mint& lhs, const mint&\
+    \ rhs) { return mint(lhs) *= rhs; }\n    friend mint operator/(const mint& lhs,\
+    \ const mint& rhs) { return mint(lhs) /= rhs; }\n    friend bool operator==(const\
+    \ mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }\n    friend bool operator!=(const\
     \ mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }\n};\ntemplate <int\
     \ id>\nbarrett dynamic_modint<id>::bt(998244353);\nusing modint = dynamic_modint<-1>;\n\
     \n#endif  // _LIB_DYNAMIC_MODINT_HPP\n/**\n * @brief dyanamic_modint\n */\n"
@@ -109,7 +109,7 @@ data:
   isVerificationFile: false
   path: dynamic_modint.hpp
   requiredBy: []
-  timestamp: '2023-12-30 13:55:05+09:00'
+  timestamp: '2023-12-30 14:39:36+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: dynamic_modint.hpp

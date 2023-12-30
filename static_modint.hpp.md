@@ -44,8 +44,8 @@ data:
     \   }\n    constexpr mint& operator*=(mint rhs) {\n        unsigned long long\
     \ z = _v;\n        z *= rhs._v;\n        _v = (unsigned int)(z % m);\n       \
     \ return *this;\n    }\n    constexpr mint& operator/=(mint rhs) { return *this\
-    \ *= rhs.inv(); }\n\n    constexpr mint operator+() const { return *this; }\n\
-    \    constexpr mint operator-() const { return mint{} - *this; }\n\n    constexpr\
+    \ = *this * rhs.inv(); }\n\n    constexpr mint operator+() const { return *this;\
+    \ }\n    constexpr mint operator-() const { return mint{} - *this; }\n\n    constexpr\
     \ mint pow(unsigned long long n) const {\n        assert(0 <= n);\n        mint\
     \ x = *this, r = 1;\n        while (n) {\n            if (n & 1) r *= x;\n   \
     \         x *= x;\n            n >>= 1;\n        }\n        return r;\n    }\n\
@@ -97,9 +97,9 @@ data:
     \ += m;\n        _v -= rhs._v;\n        return *this;\n    }\n    constexpr mint&\
     \ operator*=(mint rhs) {\n        unsigned long long z = _v;\n        z *= rhs._v;\n\
     \        _v = (unsigned int)(z % m);\n        return *this;\n    }\n    constexpr\
-    \ mint& operator/=(mint rhs) { return *this *= rhs.inv(); }\n\n    constexpr mint\
-    \ operator+() const { return *this; }\n    constexpr mint operator-() const {\
-    \ return mint{} - *this; }\n\n    constexpr mint pow(unsigned long long n) const\
+    \ mint& operator/=(mint rhs) { return *this = *this * rhs.inv(); }\n\n    constexpr\
+    \ mint operator+() const { return *this; }\n    constexpr mint operator-() const\
+    \ { return mint{} - *this; }\n\n    constexpr mint pow(unsigned long long n) const\
     \ {\n        assert(0 <= n);\n        mint x = *this, r = 1;\n        while (n)\
     \ {\n            if (n & 1) r *= x;\n            x *= x;\n            n >>= 1;\n\
     \        }\n        return r;\n    }\n    constexpr mint inv() const {\n     \
@@ -120,7 +120,7 @@ data:
   isVerificationFile: false
   path: static_modint.hpp
   requiredBy: []
-  timestamp: '2023-12-30 12:54:21+09:00'
+  timestamp: '2023-12-30 14:39:36+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: static_modint.hpp
