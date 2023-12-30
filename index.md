@@ -27,6 +27,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: segtree_2d.hpp
       title: 2D Segment Tree
+    - icon: ':warning:'
+      path: static_modint.hpp
+      title: static_modint
     - icon: ':heavy_check_mark:'
       path: swag.hpp
       title: SWAG (Sliding Window Aggregation)
