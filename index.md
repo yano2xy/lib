@@ -27,6 +27,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: rerooting.hpp
       title: rerooting
+    - icon: ':warning:'
+      path: segset.hpp
+      title: segset
     - icon: ':heavy_check_mark:'
       path: segtree_2d.hpp
       title: 2D Segment Tree
