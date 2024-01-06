@@ -25,6 +25,9 @@ data:
       path: lagrange_interpolation.hpp
       title: lagrange_interpolation.hpp
     - icon: ':heavy_check_mark:'
+      path: lowlink.hpp
+      title: Lowlink
+    - icon: ':heavy_check_mark:'
       path: rerooting.hpp
       title: rerooting
     - icon: ':warning:'
@@ -48,6 +51,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/dsu_potential.test.cpp
       title: verify/dsu_potential.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/lowlink_articulation.test.cpp
+      title: verify/lowlink_articulation.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/lowlink_bridge.test.cpp
+      title: verify/lowlink_bridge.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/rerooting.test.cpp
       title: verify/rerooting.test.cpp
