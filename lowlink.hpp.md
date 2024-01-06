@@ -1,7 +1,10 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: bcc_graph.hpp
+    title: bcc_graph (Bi-Connected Components)
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/lowlink_articulation.test.cpp
@@ -17,8 +20,8 @@ data:
     document_title: Lowlink
     links: []
   bundledCode: "#line 2 \"lowlink.hpp\"\n\n#include <algorithm>\n#include <vector>\n\
-    \nstruct lowlink {\n   private:\n    int n;\n    std::vector<std::vector<int>>\
-    \ G;\n    std::vector<int> used, ord, low;\n\n    int dfs(int pos, int k, int\
+    \nstruct lowlink {\n   protected:\n    int n;\n    std::vector<int> used, ord,\
+    \ low;\n    std::vector<std::vector<int>> G;\n    int dfs(int pos, int k, int\
     \ par = -1) {\n        used[pos] = 1;\n        ord[pos] = k++;\n        low[pos]\
     \ = ord[pos];\n        bool is_articulation = false;\n        int cnt = 0;\n \
     \       for (auto &to : G[pos]) {\n            if (!used[to]) {\n            \
@@ -31,14 +34,15 @@ data:
     \        return k;\n    }\n\n   public:\n    std::vector<int> articulation;\n\
     \    std::vector<std::pair<int, int>> bridge;\n    lowlink(int n) : n(n) { G.assign(n,\
     \ std::vector<int>()); }\n    void add_edge(int u, int v) {\n        G[u].push_back(v);\n\
-    \        G[v].push_back(u);\n    }\n    void build() {\n        used.assign(n,\
-    \ 0);\n        ord.assign(n, 0);\n        low.assign(n, 0);\n        int k = 0;\n\
-    \        for (int i = 0; i < n; i++)\n            if (!used[i]) k = dfs(i, k);\n\
-    \    }\n};\n/*\n * @brief Lowlink\n * @docs docs/lowlink.md\n */\n"
+    \        G[v].push_back(u);\n    }\n    int size() const { return n; }\n    void\
+    \ build() {\n        used.assign(n, 0);\n        ord.assign(n, 0);\n        low.assign(n,\
+    \ 0);\n        int k = 0;\n        for (int i = 0; i < n; i++)\n            if\
+    \ (!used[i]) k = dfs(i, k);\n    }\n};\n/*\n * @brief Lowlink\n * @docs docs/lowlink.md\n\
+    \ */\n"
   code: "#pragma once\n\n#include <algorithm>\n#include <vector>\n\nstruct lowlink\
-    \ {\n   private:\n    int n;\n    std::vector<std::vector<int>> G;\n    std::vector<int>\
-    \ used, ord, low;\n\n    int dfs(int pos, int k, int par = -1) {\n        used[pos]\
-    \ = 1;\n        ord[pos] = k++;\n        low[pos] = ord[pos];\n        bool is_articulation\
+    \ {\n   protected:\n    int n;\n    std::vector<int> used, ord, low;\n    std::vector<std::vector<int>>\
+    \ G;\n    int dfs(int pos, int k, int par = -1) {\n        used[pos] = 1;\n  \
+    \      ord[pos] = k++;\n        low[pos] = ord[pos];\n        bool is_articulation\
     \ = false;\n        int cnt = 0;\n        for (auto &to : G[pos]) {\n        \
     \    if (!used[to]) {\n                ++cnt;\n                k = dfs(to, k,\
     \ pos);\n                low[pos] = std::min(low[pos], low[to]);\n           \
@@ -50,15 +54,16 @@ data:
     \    }\n\n   public:\n    std::vector<int> articulation;\n    std::vector<std::pair<int,\
     \ int>> bridge;\n    lowlink(int n) : n(n) { G.assign(n, std::vector<int>());\
     \ }\n    void add_edge(int u, int v) {\n        G[u].push_back(v);\n        G[v].push_back(u);\n\
-    \    }\n    void build() {\n        used.assign(n, 0);\n        ord.assign(n,\
-    \ 0);\n        low.assign(n, 0);\n        int k = 0;\n        for (int i = 0;\
-    \ i < n; i++)\n            if (!used[i]) k = dfs(i, k);\n    }\n};\n/*\n * @brief\
-    \ Lowlink\n * @docs docs/lowlink.md\n */"
+    \    }\n    int size() const { return n; }\n    void build() {\n        used.assign(n,\
+    \ 0);\n        ord.assign(n, 0);\n        low.assign(n, 0);\n        int k = 0;\n\
+    \        for (int i = 0; i < n; i++)\n            if (!used[i]) k = dfs(i, k);\n\
+    \    }\n};\n/*\n * @brief Lowlink\n * @docs docs/lowlink.md\n */"
   dependsOn: []
   isVerificationFile: false
   path: lowlink.hpp
-  requiredBy: []
-  timestamp: '2024-01-06 17:27:26+09:00'
+  requiredBy:
+  - bcc_graph.hpp
+  timestamp: '2024-01-06 18:15:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/lowlink_articulation.test.cpp
@@ -96,7 +101,19 @@ void lk.add_edge(int u, int v)
 
 **計算量**
 
-- $(1)$
+- $O(1)$
+
+## size
+
+```cpp
+int lk.size()
+```
+
+lowlinkのグラフの頂点数 $n$ を返す  
+
+**計算量** 
+
+- $O(1)$
 
 ## build
 

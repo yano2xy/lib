@@ -4,6 +4,9 @@ data:
   - name: .
     pages:
     - icon: ':warning:'
+      path: bcc_graph.hpp
+      title: bcc_graph (Bi-Connected Components)
+    - icon: ':warning:'
       path: cht.hpp
       title: cht (Convex Hull Trick)
     - icon: ':heavy_check_mark:'
