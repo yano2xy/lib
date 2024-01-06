@@ -24,7 +24,19 @@ void lk.add_edge(int u, int v)
 
 **計算量**
 
-- $(1)$
+- $O(1)$
+
+## size
+
+```cpp
+int lk.size()
+```
+
+lowlinkのグラフの頂点数 $n$ を返す  
+
+**計算量** 
+
+- $O(1)$
 
 ## build
 

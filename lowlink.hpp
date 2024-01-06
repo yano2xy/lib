@@ -4,11 +4,10 @@
 #include <vector>
 
 struct lowlink {
-   private:
+   protected:
     int n;
-    std::vector<std::vector<int>> G;
     std::vector<int> used, ord, low;
-
+    std::vector<std::vector<int>> G;
     int dfs(int pos, int k, int par = -1) {
         used[pos] = 1;
         ord[pos] = k++;
@@ -39,6 +38,7 @@ struct lowlink {
         G[u].push_back(v);
         G[v].push_back(u);
     }
+    int size() const { return n; }
     void build() {
         used.assign(n, 0);
         ord.assign(n, 0);
