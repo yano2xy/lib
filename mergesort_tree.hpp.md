@@ -10,17 +10,17 @@ data:
     _deprecated_at_docs: docs/mergesort_tree.md
     document_title: mergesort_tree
     links: []
-  bundledCode: "#line 2 \"margesort_tree.hpp\"\n\n#include <algorithm>\n#include <vector>\n\
+  bundledCode: "#line 2 \"mergesort_tree.hpp\"\n\n#include <algorithm>\n#include <vector>\n\
     \ntemplate <typename T> struct mergesort_tree {\n   private:\n    int n;\n   \
     \ std::vector<std::vector<T> > t;\n    int _count(int ql, int qr, T x, int k =\
     \ 0, int l = 0, int r = -1) const {\n        if (r < 0) r = n;\n        if (qr\
     \ <= l || r <= ql) return 0;\n        else if (ql <= l && r <= qr) return lower_bound(t[k].begin(),\
-    \ t[k].end(), x) - t[k].begin();\n        else return count(ql, qr, x, k * 2 +\
-    \ 1, l, (l + r) / 2) + count(ql, qr, x, k * 2 + 2, (l + r) / 2, r);\n    }\n\n\
-    \   public:\n    mergesort_tree(const std::vector<T>& a) {\n        n = 1;\n \
-    \       while (n < a.size()) n <<= 1;\n        t.assign(2 * n - 1, {});\n    \
-    \    for (int i = 0; i < a.size(); i++) t[i + n - 1].push_back(a[i]);\n      \
-    \  for (int i = n - 2; i >= 0; i--) {\n            t[i].resize(t[i * 2 + 1].size()\
+    \ t[k].end(), x) - t[k].begin();\n        else return _count(ql, qr, x, k * 2\
+    \ + 1, l, (l + r) / 2) + _count(ql, qr, x, k * 2 + 2, (l + r) / 2, r);\n    }\n\
+    \n   public:\n    mergesort_tree(const std::vector<T>& a) {\n        n = 1;\n\
+    \        while (n < a.size()) n <<= 1;\n        t.assign(2 * n - 1, {});\n   \
+    \     for (int i = 0; i < a.size(); i++) t[i + n - 1].push_back(a[i]);\n     \
+    \   for (int i = n - 2; i >= 0; i--) {\n            t[i].resize(t[i * 2 + 1].size()\
     \ + t[i * 2 + 2].size());\n            std::merge(t[i * 2 + 1].begin(), t[i *\
     \ 2 + 1].end(), t[i * 2 + 2].begin(), t[i * 2 + 2].end(), t[i].begin());\n   \
     \     }\n    }\n    int count(int ql, int qr, T x) const { return _count(ql, qr,\
@@ -32,8 +32,8 @@ data:
     \ > t;\n    int _count(int ql, int qr, T x, int k = 0, int l = 0, int r = -1)\
     \ const {\n        if (r < 0) r = n;\n        if (qr <= l || r <= ql) return 0;\n\
     \        else if (ql <= l && r <= qr) return lower_bound(t[k].begin(), t[k].end(),\
-    \ x) - t[k].begin();\n        else return count(ql, qr, x, k * 2 + 1, l, (l +\
-    \ r) / 2) + count(ql, qr, x, k * 2 + 2, (l + r) / 2, r);\n    }\n\n   public:\n\
+    \ x) - t[k].begin();\n        else return _count(ql, qr, x, k * 2 + 1, l, (l +\
+    \ r) / 2) + _count(ql, qr, x, k * 2 + 2, (l + r) / 2, r);\n    }\n\n   public:\n\
     \    mergesort_tree(const std::vector<T>& a) {\n        n = 1;\n        while\
     \ (n < a.size()) n <<= 1;\n        t.assign(2 * n - 1, {});\n        for (int\
     \ i = 0; i < a.size(); i++) t[i + n - 1].push_back(a[i]);\n        for (int i\
@@ -46,16 +46,16 @@ data:
     \ */"
   dependsOn: []
   isVerificationFile: false
-  path: margesort_tree.hpp
+  path: mergesort_tree.hpp
   requiredBy: []
-  timestamp: '2024-01-18 22:10:15+09:00'
+  timestamp: '2024-01-18 22:36:16+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: margesort_tree.hpp
+documentation_of: mergesort_tree.hpp
 layout: document
 redirect_from:
-- /library/margesort_tree.hpp
-- /library/margesort_tree.hpp.html
+- /library/mergesort_tree.hpp
+- /library/mergesort_tree.hpp.html
 title: mergesort_tree
 ---
 # mergesort_tree
