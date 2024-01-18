@@ -30,6 +30,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: lowlink.hpp
       title: Lowlink
+    - icon: ':warning:'
+      path: margesort_tree.hpp
+      title: mergesort_tree
     - icon: ':heavy_check_mark:'
       path: rerooting.hpp
       title: rerooting
