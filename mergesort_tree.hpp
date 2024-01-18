@@ -11,7 +11,7 @@ template <typename T> struct mergesort_tree {
         if (r < 0) r = n;
         if (qr <= l || r <= ql) return 0;
         else if (ql <= l && r <= qr) return lower_bound(t[k].begin(), t[k].end(), x) - t[k].begin();
-        else return count(ql, qr, x, k * 2 + 1, l, (l + r) / 2) + count(ql, qr, x, k * 2 + 2, (l + r) / 2, r);
+        else return _count(ql, qr, x, k * 2 + 1, l, (l + r) / 2) + _count(ql, qr, x, k * 2 + 2, (l + r) / 2, r);
     }
 
    public:
