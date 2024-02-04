@@ -5,5 +5,6 @@
 "verify/lowlink_bridge.test.cpp": "2024-01-06 18:15:33 +0900",
 "verify/rerooting.test.cpp": "2023-10-12 23:05:16 +0900",
 "verify/segtree_2d.test.cpp": "2023-12-20 21:56:45 +0900",
-"verify/swag.test.cpp": "2023-12-20 00:00:38 +0900"
+"verify/swag.test.cpp": "2023-12-20 00:00:38 +0900",
+"verify/wavelet_matrix_prev_next_value.test.cpp": "2024-02-04 22:51:22 +0900"
 }
