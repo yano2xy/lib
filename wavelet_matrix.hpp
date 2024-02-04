@@ -315,3 +315,7 @@ template <typename T, bool COMPRESS> struct wavelet_matrix {
     // xor した結果で [0, k) 番目のものの和
     T prefix_sum(std::vector<std::pair<int, int>> segments, int k, T xor_val = 0) { return kth_value_and_sum(segments, k, xor_val).second; }
 };
+/*
+ * @brief wavelet matrix
+ * @docs docs/wavelet_matrix.md
+ */
