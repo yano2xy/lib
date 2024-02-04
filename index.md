@@ -50,7 +50,7 @@ data:
       title: SWAG (Sliding Window Aggregation)
     - icon: ':warning:'
       path: wavelet_matrix.hpp
-      title: wavelet_matrix.hpp
+      title: wavelet matrix
   verificationCategories:
   - name: verify
     pages:

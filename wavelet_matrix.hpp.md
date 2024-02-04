@@ -7,6 +7,8 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
+    _deprecated_at_docs: docs/wavelet_matrix.md
+    document_title: wavelet matrix
     links: []
   bundledCode: "#line 1 \"wavelet_matrix.hpp\"\n#include <algorithm>\n#include <cassert>\n\
     #include <numeric>\n#include <vector>\n\nstruct bit_vector {\n    using u32 =\
@@ -168,7 +170,8 @@ data:
     \ = 0) { return kth_value_and_sum(L, R, k, xor_val).second; }\n\n    // xor \u3057\
     \u305F\u7D50\u679C\u3067 [0, k) \u756A\u76EE\u306E\u3082\u306E\u306E\u548C\n \
     \   T prefix_sum(std::vector<std::pair<int, int>> segments, int k, T xor_val =\
-    \ 0) { return kth_value_and_sum(segments, k, xor_val).second; }\n};\n"
+    \ 0) { return kth_value_and_sum(segments, k, xor_val).second; }\n};\n/*\n * @brief\
+    \ wavelet matrix\n * @docs docs/wavelet_matrix.md\n */\n"
   code: "#include <algorithm>\n#include <cassert>\n#include <numeric>\n#include <vector>\n\
     \nstruct bit_vector {\n    using u32 = unsigned int;\n    std::vector<std::pair<u32,\
     \ u32>> dat;\n    bit_vector(int n) { dat.assign((n + 63) >> 5, {0, 0}); }\n \
@@ -328,12 +331,13 @@ data:
     \ = 0) { return kth_value_and_sum(L, R, k, xor_val).second; }\n\n    // xor \u3057\
     \u305F\u7D50\u679C\u3067 [0, k) \u756A\u76EE\u306E\u3082\u306E\u306E\u548C\n \
     \   T prefix_sum(std::vector<std::pair<int, int>> segments, int k, T xor_val =\
-    \ 0) { return kth_value_and_sum(segments, k, xor_val).second; }\n};"
+    \ 0) { return kth_value_and_sum(segments, k, xor_val).second; }\n};\n/*\n * @brief\
+    \ wavelet matrix\n * @docs docs/wavelet_matrix.md\n */"
   dependsOn: []
   isVerificationFile: false
   path: wavelet_matrix.hpp
   requiredBy: []
-  timestamp: '2024-02-04 13:10:29+09:00'
+  timestamp: '2024-02-04 13:32:36+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: wavelet_matrix.hpp
@@ -341,5 +345,29 @@ layout: document
 redirect_from:
 - /library/wavelet_matrix.hpp
 - /library/wavelet_matrix.hpp.html
-title: wavelet_matrix.hpp
+title: wavelet matrix
 ---
+# Wavelet Matrix
+
+## コンストラクタ
+
+~~~cpp
+wavelet_matrix<T, true> wm(vector<T> A)
+~~~
+
+- $A$ はウェーブレット行列にのせる数列
+- $A$ の要素を座標圧縮する場合は 型テンプレートで `true` を渡す
+
+## count
+
+~~~
+int wm.count(int L, int R, int a, int b)
+int wm.count(vector<pair<int,int>> segments, int a, int b)
+~~~
+
+- 区間 $[L, R)$ において、値が $[a, b)$ であるようなものの個数をかえす
+- 複数の区間 $vector<pair<int,int>> segments$ を与えることも可能 
+
+**計算量**
+
+- $O(log(N))$
