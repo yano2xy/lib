@@ -248,6 +248,16 @@ template <typename T, bool COMPRESS> struct wavelet_matrix {
         return sm;
     }
 
+    T prev_value(int L, int R, T upper) {
+        int cnt = prefix_count(L, R, upper);
+        return cnt == 0 ? INF : kth(L, R, cnt - 1);
+    }
+
+    T next_value(int L, int R, T lower) {
+        int cnt = prefix_count(L, R, lower);
+        return cnt == R - L ? INF : kth(L, R, cnt);
+    }
+
     // check(cnt, prefix sum) が true となるような最大の (cnt, sum)
     template <typename F> std::pair<int, T> max_right(F check, int L, int R, T xor_val = 0) {
         assert(check(0, T(0)));
