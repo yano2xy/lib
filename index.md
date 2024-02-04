@@ -48,7 +48,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: swag.hpp
       title: SWAG (Sliding Window Aggregation)
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: wavelet_matrix.hpp
       title: wavelet matrix
   verificationCategories:
@@ -75,5 +75,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/swag.test.cpp
       title: verify/swag.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/wavelet_matrix_prev_next_value.test.cpp
+      title: verify/wavelet_matrix_prev_next_value.test.cpp
 layout: toppage
 ---

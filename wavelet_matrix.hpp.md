@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/wavelet_matrix_prev_next_value.test.cpp
+    title: verify/wavelet_matrix_prev_next_value.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/wavelet_matrix.md
     document_title: wavelet matrix
@@ -134,13 +137,17 @@ data:
     \ add - sub;\n    }\n\n    T sum_all(int L, int R) { return get(lg, L, R); }\n\
     \    T sum_all(std::vector<std::pair<int, int>> segments) {\n        T sm = T(0);\n\
     \        for (auto&& [L, R] : segments) {\n            sm = sm + get(lg, L, R);\n\
-    \        }\n        return sm;\n    }\n\n    // check(cnt, prefix sum) \u304C\
-    \ true \u3068\u306A\u308B\u3088\u3046\u306A\u6700\u5927\u306E (cnt, sum)\n   \
-    \ template <typename F> std::pair<int, T> max_right(F check, int L, int R, T xor_val\
-    \ = 0) {\n        assert(check(0, T(0)));\n        if (xor_val != 0) assert(set_log);\n\
-    \        if (check(R - L, get(lg, L, R))) return {R - L, get(lg, L, R)};\n   \
-    \     int cnt = 0;\n        T sm = T(0);\n        for (int d = lg - 1; d >= 0;\
-    \ --d) {\n            bool f = (xor_val >> d) & 1;\n            int l0 = bv[d].rank(L,\
+    \        }\n        return sm;\n    }\n\n    T prev_value(int L, int R, T upper)\
+    \ {\n        int cnt = prefix_count(L, R, upper);\n        return cnt == 0 ? INF\
+    \ : kth(L, R, cnt - 1);\n    }\n\n    T next_value(int L, int R, T lower) {\n\
+    \        int cnt = prefix_count(L, R, lower);\n        return cnt == R - L ? INF\
+    \ : kth(L, R, cnt);\n    }\n\n    // check(cnt, prefix sum) \u304C true \u3068\
+    \u306A\u308B\u3088\u3046\u306A\u6700\u5927\u306E (cnt, sum)\n    template <typename\
+    \ F> std::pair<int, T> max_right(F check, int L, int R, T xor_val = 0) {\n   \
+    \     assert(check(0, T(0)));\n        if (xor_val != 0) assert(set_log);\n  \
+    \      if (check(R - L, get(lg, L, R))) return {R - L, get(lg, L, R)};\n     \
+    \   int cnt = 0;\n        T sm = T(0);\n        for (int d = lg - 1; d >= 0; --d)\
+    \ {\n            bool f = (xor_val >> d) & 1;\n            int l0 = bv[d].rank(L,\
     \ 0), r0 = bv[d].rank(R, 0);\n            int c = (f ? (R - L) - (r0 - l0) : (r0\
     \ - l0));\n            T s = (f ? get(d, L + mid[d] - l0, R + mid[d] - r0) : get(d,\
     \ l0, r0));\n            if (check(cnt + c, sm + s)) {\n                cnt +=\
@@ -295,13 +302,17 @@ data:
     \ add - sub;\n    }\n\n    T sum_all(int L, int R) { return get(lg, L, R); }\n\
     \    T sum_all(std::vector<std::pair<int, int>> segments) {\n        T sm = T(0);\n\
     \        for (auto&& [L, R] : segments) {\n            sm = sm + get(lg, L, R);\n\
-    \        }\n        return sm;\n    }\n\n    // check(cnt, prefix sum) \u304C\
-    \ true \u3068\u306A\u308B\u3088\u3046\u306A\u6700\u5927\u306E (cnt, sum)\n   \
-    \ template <typename F> std::pair<int, T> max_right(F check, int L, int R, T xor_val\
-    \ = 0) {\n        assert(check(0, T(0)));\n        if (xor_val != 0) assert(set_log);\n\
-    \        if (check(R - L, get(lg, L, R))) return {R - L, get(lg, L, R)};\n   \
-    \     int cnt = 0;\n        T sm = T(0);\n        for (int d = lg - 1; d >= 0;\
-    \ --d) {\n            bool f = (xor_val >> d) & 1;\n            int l0 = bv[d].rank(L,\
+    \        }\n        return sm;\n    }\n\n    T prev_value(int L, int R, T upper)\
+    \ {\n        int cnt = prefix_count(L, R, upper);\n        return cnt == 0 ? INF\
+    \ : kth(L, R, cnt - 1);\n    }\n\n    T next_value(int L, int R, T lower) {\n\
+    \        int cnt = prefix_count(L, R, lower);\n        return cnt == R - L ? INF\
+    \ : kth(L, R, cnt);\n    }\n\n    // check(cnt, prefix sum) \u304C true \u3068\
+    \u306A\u308B\u3088\u3046\u306A\u6700\u5927\u306E (cnt, sum)\n    template <typename\
+    \ F> std::pair<int, T> max_right(F check, int L, int R, T xor_val = 0) {\n   \
+    \     assert(check(0, T(0)));\n        if (xor_val != 0) assert(set_log);\n  \
+    \      if (check(R - L, get(lg, L, R))) return {R - L, get(lg, L, R)};\n     \
+    \   int cnt = 0;\n        T sm = T(0);\n        for (int d = lg - 1; d >= 0; --d)\
+    \ {\n            bool f = (xor_val >> d) & 1;\n            int l0 = bv[d].rank(L,\
     \ 0), r0 = bv[d].rank(R, 0);\n            int c = (f ? (R - L) - (r0 - l0) : (r0\
     \ - l0));\n            T s = (f ? get(d, L + mid[d] - l0, R + mid[d] - r0) : get(d,\
     \ l0, r0));\n            if (check(cnt + c, sm + s)) {\n                cnt +=\
@@ -337,9 +348,10 @@ data:
   isVerificationFile: false
   path: wavelet_matrix.hpp
   requiredBy: []
-  timestamp: '2024-02-04 13:32:36+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-02-04 22:51:22+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/wavelet_matrix_prev_next_value.test.cpp
 documentation_of: wavelet_matrix.hpp
 layout: document
 redirect_from:
