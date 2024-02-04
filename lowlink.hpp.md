@@ -66,8 +66,8 @@ data:
   timestamp: '2024-01-06 18:15:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/lowlink_articulation.test.cpp
   - verify/lowlink_bridge.test.cpp
+  - verify/lowlink_articulation.test.cpp
 documentation_of: lowlink.hpp
 layout: document
 redirect_from:

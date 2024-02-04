@@ -48,6 +48,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: swag.hpp
       title: SWAG (Sliding Window Aggregation)
+    - icon: ':warning:'
+      path: wavelet_matrix.hpp
+      title: wavelet_matrix.hpp
   verificationCategories:
   - name: verify
     pages:
