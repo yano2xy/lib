@@ -96,4 +96,5 @@ template <typename G> struct HLD {
 
 /**
  * @brief Heavy Light Decomposition(重軽分解)
+ * @docs docs/hld.md
  */
