@@ -71,6 +71,8 @@ void hld.path_nocommutative_query(int u, int v, const F& f, bool isEdge=false)
 ```
 
 - 非可換なパスクエリに対応する
+- パスを区間に分割するのは `path_query`と同様だが、分割後の各区間の向きと処理順まで考慮される。
+  - 木を根方向に遡るような区間では、$r<l$ であるような区間 $(r, l]$ が $F$ に渡されて処理される。   
 
 **計算量**
 
