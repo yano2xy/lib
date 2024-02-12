@@ -25,6 +25,9 @@ data:
       path: fps.hpp
       title: fps.hpp
     - icon: ':warning:'
+      path: hld.hpp
+      title: "Heavy Light Decomposition(\u91CD\u8EFD\u5206\u89E3)"
+    - icon: ':warning:'
       path: lagrange_interpolation.hpp
       title: lagrange_interpolation.hpp
     - icon: ':heavy_check_mark:'
