@@ -15,12 +15,18 @@ data:
     - icon: ':warning:'
       path: fps.hpp
       title: fps.hpp
+    - icon: ':heavy_check_mark:'
+      path: graph.hpp
+      title: graph.hpp
     - icon: ':warning:'
       path: hld.hpp
       title: "Heavy Light Decomposition(\u91CD\u8EFD\u5206\u89E3)"
     - icon: ':warning:'
       path: lagrange_interpolation.hpp
       title: lagrange_interpolation.hpp
+    - icon: ':heavy_check_mark:'
+      path: lca_tree.hpp
+      title: lca_tree.hpp
     - icon: ':heavy_check_mark:'
       path: lowlink.hpp
       title: Lowlink
@@ -45,12 +51,12 @@ data:
   verificationCategories:
   - name: verify
     pages:
-    - icon: ':x:'
-      path: verify/dsu.test.cpp
-      title: verify/dsu.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/dsu_potential.test.cpp
       title: verify/dsu_potential.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/lca_tree.test.cpp
+      title: verify/lca_tree.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/lowlink_articulation.test.cpp
       title: verify/lowlink_articulation.test.cpp
