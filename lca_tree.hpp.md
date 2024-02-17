@@ -4,7 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph.hpp
     title: graph.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: auxiliary_tree.hpp
+    title: auxiliary_tree.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/lca_tree.test.cpp
@@ -46,22 +49,22 @@ data:
     \ == par) continue;\n            dfs(edge.to, pos, d + 1, c + edge.cost);\n  \
     \      }\n    }\n\n   public:\n    lca_tree(int n) : n(n), Graph<T>(n) {}\n  \
     \  void build(int root = 0) {\n        K = 0;\n        while ((1 << K) < n) K++;\n\
-    \        parent.assign(n + 1, vector<int>(K, n));\n        depth.assign(n, -1);\n\
-    \        cost.assign(n, -1);\n        dfs(root, -1, 0, 0);\n        for (int i\
-    \ = 0; i < K - 1; ++i) {\n            for (int v = 0; v < n; ++v) {\n        \
-    \        parent[v][i + 1] = parent[parent[v][i]][i];\n            }\n        }\n\
-    \    }\n    int lca(int a, int b) {\n        if (depth[a] > depth[b]) swap(a,\
-    \ b);\n        int diff = depth[b] - depth[a];\n        for (int i = K - 1; i\
-    \ >= 0; i--) {\n            int len = 1 << i;\n            if (diff >= len) {\n\
-    \                diff -= len;\n                b = parent[b][i];\n           \
-    \ }\n        }\n        if (a == b) return a;\n        for (int i = K - 1; i >=\
-    \ 0; i--) {\n            int na = parent[a][i];\n            int nb = parent[b][i];\n\
-    \            if (na != nb) a = na, b = nb;\n        }\n        return parent[a][0];\n\
-    \    }\n\n    // \u30CE\u30FC\u30C9\u9593\u306E\u8DDD\u96E2\uFF081\u9AA8\u683C\
-    )\n    int length(int a, int b) { return depth[a] + depth[b] - 2 * depth[lca(a,\
-    \ b)]; }\n\n    // \u30CE\u30FC\u30C9\u9593\u306E\u8DDD\u96E2\uFF08\u30B3\u30B9\
-    \u30C8\uFF09\n    T dist(int a, int b) { return cost[a] + cost[b] - 2 * cost[lca(a,\
-    \ b)]; }\n};\n"
+    \        parent.assign(n + 1, std::vector<int>(K, n));\n        depth.assign(n,\
+    \ -1);\n        cost.assign(n, -1);\n        dfs(root, -1, 0, 0);\n        for\
+    \ (int i = 0; i < K - 1; ++i) {\n            for (int v = 0; v < n; ++v) {\n \
+    \               parent[v][i + 1] = parent[parent[v][i]][i];\n            }\n \
+    \       }\n    }\n    int lca(int a, int b) {\n        if (depth[a] > depth[b])\
+    \ std::swap(a, b);\n        int diff = depth[b] - depth[a];\n        for (int\
+    \ i = K - 1; i >= 0; i--) {\n            int len = 1 << i;\n            if (diff\
+    \ >= len) {\n                diff -= len;\n                b = parent[b][i];\n\
+    \            }\n        }\n        if (a == b) return a;\n        for (int i =\
+    \ K - 1; i >= 0; i--) {\n            int na = parent[a][i];\n            int nb\
+    \ = parent[b][i];\n            if (na != nb) a = na, b = nb;\n        }\n    \
+    \    return parent[a][0];\n    }\n\n    // \u30CE\u30FC\u30C9\u9593\u306E\u8DDD\
+    \u96E2\uFF081\u9AA8\u683C)\n    int length(int a, int b) { return depth[a] + depth[b]\
+    \ - 2 * depth[lca(a, b)]; }\n\n    // \u30CE\u30FC\u30C9\u9593\u306E\u8DDD\u96E2\
+    \uFF08\u30B3\u30B9\u30C8\uFF09\n    T dist(int a, int b) { return cost[a] + cost[b]\
+    \ - 2 * cost[lca(a, b)]; }\n};\n"
   code: "#include <cassert>\n#include <vector>\n\n#include \"graph.hpp\"\ntemplate\
     \ <typename T = long long> struct lca_tree : Graph<T> {\n   private:\n    int\
     \ n, K;\n    std::vector<std::vector<int>> parent;  // parent[v][k] := v \u306E\
@@ -73,16 +76,16 @@ data:
     \  if (edge.to == par) continue;\n            dfs(edge.to, pos, d + 1, c + edge.cost);\n\
     \        }\n    }\n\n   public:\n    lca_tree(int n) : n(n), Graph<T>(n) {}\n\
     \    void build(int root = 0) {\n        K = 0;\n        while ((1 << K) < n)\
-    \ K++;\n        parent.assign(n + 1, vector<int>(K, n));\n        depth.assign(n,\
+    \ K++;\n        parent.assign(n + 1, std::vector<int>(K, n));\n        depth.assign(n,\
     \ -1);\n        cost.assign(n, -1);\n        dfs(root, -1, 0, 0);\n        for\
     \ (int i = 0; i < K - 1; ++i) {\n            for (int v = 0; v < n; ++v) {\n \
     \               parent[v][i + 1] = parent[parent[v][i]][i];\n            }\n \
     \       }\n    }\n    int lca(int a, int b) {\n        if (depth[a] > depth[b])\
-    \ swap(a, b);\n        int diff = depth[b] - depth[a];\n        for (int i = K\
-    \ - 1; i >= 0; i--) {\n            int len = 1 << i;\n            if (diff >=\
-    \ len) {\n                diff -= len;\n                b = parent[b][i];\n  \
-    \          }\n        }\n        if (a == b) return a;\n        for (int i = K\
-    \ - 1; i >= 0; i--) {\n            int na = parent[a][i];\n            int nb\
+    \ std::swap(a, b);\n        int diff = depth[b] - depth[a];\n        for (int\
+    \ i = K - 1; i >= 0; i--) {\n            int len = 1 << i;\n            if (diff\
+    \ >= len) {\n                diff -= len;\n                b = parent[b][i];\n\
+    \            }\n        }\n        if (a == b) return a;\n        for (int i =\
+    \ K - 1; i >= 0; i--) {\n            int na = parent[a][i];\n            int nb\
     \ = parent[b][i];\n            if (na != nb) a = na, b = nb;\n        }\n    \
     \    return parent[a][0];\n    }\n\n    // \u30CE\u30FC\u30C9\u9593\u306E\u8DDD\
     \u96E2\uFF081\u9AA8\u683C)\n    int length(int a, int b) { return depth[a] + depth[b]\
@@ -93,8 +96,9 @@ data:
   - graph.hpp
   isVerificationFile: false
   path: lca_tree.hpp
-  requiredBy: []
-  timestamp: '2024-02-17 19:23:11+09:00'
+  requiredBy:
+  - auxiliary_tree.hpp
+  timestamp: '2024-02-17 20:02:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/lca_tree.test.cpp

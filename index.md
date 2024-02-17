@@ -4,6 +4,9 @@ data:
   - name: .
     pages:
     - icon: ':warning:'
+      path: auxiliary_tree.hpp
+      title: auxiliary_tree.hpp
+    - icon: ':warning:'
       path: bcc_graph.hpp
       title: bcc_graph (Bi-Connected Components)
     - icon: ':warning:'

@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: auxiliary_tree.hpp
+    title: auxiliary_tree.hpp
   - icon: ':heavy_check_mark:'
     path: lca_tree.hpp
     title: lca_tree.hpp
@@ -61,6 +64,7 @@ data:
   path: graph.hpp
   requiredBy:
   - lca_tree.hpp
+  - auxiliary_tree.hpp
   timestamp: '2024-02-17 19:23:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
