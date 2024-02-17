@@ -24,7 +24,7 @@ template <typename T = long long> struct lca_tree : Graph<T> {
     void build(int root = 0) {
         K = 0;
         while ((1 << K) < n) K++;
-        parent.assign(n + 1, vector<int>(K, n));
+        parent.assign(n + 1, std::vector<int>(K, n));
         depth.assign(n, -1);
         cost.assign(n, -1);
         dfs(root, -1, 0, 0);
@@ -35,7 +35,7 @@ template <typename T = long long> struct lca_tree : Graph<T> {
         }
     }
     int lca(int a, int b) {
-        if (depth[a] > depth[b]) swap(a, b);
+        if (depth[a] > depth[b]) std::swap(a, b);
         int diff = depth[b] - depth[a];
         for (int i = K - 1; i >= 0; i--) {
             int len = 1 << i;
