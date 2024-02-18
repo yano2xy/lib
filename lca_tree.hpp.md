@@ -47,9 +47,9 @@ data:
     \ (par != -1) parent[pos][0] = par;\n        depth[pos] = d;\n        cost[pos]\
     \ = c;\n        for (auto edge : this->_graph[pos]) {\n            if (edge.to\
     \ == par) continue;\n            dfs(edge.to, pos, d + 1, c + edge.cost);\n  \
-    \      }\n    }\n\n   public:\n    lca_tree(int n) : n(n), Graph<T>(n) {}\n  \
-    \  void build(int root = 0) {\n        K = 0;\n        while ((1 << K) < n) K++;\n\
-    \        parent.assign(n + 1, std::vector<int>(K, n));\n        depth.assign(n,\
+    \      }\n    }\n\n   public:\n    lca_tree(int n) : n(n), Graph<T>::Graph(n)\
+    \ {}\n    void build(int root = 0) {\n        K = 0;\n        while ((1 << K)\
+    \ < n) K++;\n        parent.assign(n + 1, std::vector<int>(K, n));\n        depth.assign(n,\
     \ -1);\n        cost.assign(n, -1);\n        dfs(root, -1, 0, 0);\n        for\
     \ (int i = 0; i < K - 1; ++i) {\n            for (int v = 0; v < n; ++v) {\n \
     \               parent[v][i + 1] = parent[parent[v][i]][i];\n            }\n \
@@ -74,9 +74,9 @@ data:
     \        if (par != -1) parent[pos][0] = par;\n        depth[pos] = d;\n     \
     \   cost[pos] = c;\n        for (auto edge : this->_graph[pos]) {\n          \
     \  if (edge.to == par) continue;\n            dfs(edge.to, pos, d + 1, c + edge.cost);\n\
-    \        }\n    }\n\n   public:\n    lca_tree(int n) : n(n), Graph<T>(n) {}\n\
-    \    void build(int root = 0) {\n        K = 0;\n        while ((1 << K) < n)\
-    \ K++;\n        parent.assign(n + 1, std::vector<int>(K, n));\n        depth.assign(n,\
+    \        }\n    }\n\n   public:\n    lca_tree(int n) : n(n), Graph<T>::Graph(n)\
+    \ {}\n    void build(int root = 0) {\n        K = 0;\n        while ((1 << K)\
+    \ < n) K++;\n        parent.assign(n + 1, std::vector<int>(K, n));\n        depth.assign(n,\
     \ -1);\n        cost.assign(n, -1);\n        dfs(root, -1, 0, 0);\n        for\
     \ (int i = 0; i < K - 1; ++i) {\n            for (int v = 0; v < n; ++v) {\n \
     \               parent[v][i + 1] = parent[parent[v][i]][i];\n            }\n \
@@ -98,7 +98,7 @@ data:
   path: lca_tree.hpp
   requiredBy:
   - auxiliary_tree.hpp
-  timestamp: '2024-02-17 20:02:59+09:00'
+  timestamp: '2024-02-18 14:36:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/lca_tree.test.cpp

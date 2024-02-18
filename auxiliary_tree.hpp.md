@@ -45,8 +45,8 @@ data:
     \   depth[pos] = d;\n        cost[pos] = c;\n        for (auto edge : this->_graph[pos])\
     \ {\n            if (edge.to == par) continue;\n            dfs(edge.to, pos,\
     \ d + 1, c + edge.cost);\n        }\n    }\n\n   public:\n    lca_tree(int n)\
-    \ : n(n), Graph<T>(n) {}\n    void build(int root = 0) {\n        K = 0;\n   \
-    \     while ((1 << K) < n) K++;\n        parent.assign(n + 1, std::vector<int>(K,\
+    \ : n(n), Graph<T>::Graph(n) {}\n    void build(int root = 0) {\n        K = 0;\n\
+    \        while ((1 << K) < n) K++;\n        parent.assign(n + 1, std::vector<int>(K,\
     \ n));\n        depth.assign(n, -1);\n        cost.assign(n, -1);\n        dfs(root,\
     \ -1, 0, 0);\n        for (int i = 0; i < K - 1; ++i) {\n            for (int\
     \ v = 0; v < n; ++v) {\n                parent[v][i + 1] = parent[parent[v][i]][i];\n\
@@ -63,17 +63,18 @@ data:
     \u306E\u8DDD\u96E2\uFF08\u30B3\u30B9\u30C8\uFF09\n    T dist(int a, int b) { return\
     \ cost[a] + cost[b] - 2 * cost[lca(a, b)]; }\n};\n#line 9 \"auxiliary_tree.hpp\"\
     \n\nstruct auxiliary_tree : lca_tree<int> {\n    int n;\n    std::vector<int>\
-    \ in, out;\n    auxiliary_tree(int n) : n(n), lca_tree<int>(n) {}\n    void build()\
-    \ {\n        lca_tree::build();\n        in.assign(n, -1);\n        out.assign(n,\
-    \ -1);\n        int id = 0;\n        auto dfs = [&](auto dfs, int pos, int par\
-    \ = -1) -> void {\n            in[pos] = id++;\n            for (auto &e : (*this)[pos])\
-    \ {\n                if (e.to == par) continue;\n                dfs(dfs, e.to,\
-    \ pos);\n            }\n            out[pos] = id;\n        };\n        dfs(dfs,\
-    \ 0);\n    };\n    std::pair<int, std::vector<std::vector<int>>> generate(std::vector<int>\
-    \ V) {\n        auto order = [&](int a, int b) { return in[a] < in[b]; };\n  \
-    \      std::sort(V.begin(), V.end(), order);\n        for (int i = 0; i < V.size()\
-    \ - 1; i++) V.push_back(lca(V[i], V[i + 1]));\n        std::sort(V.begin(), V.end(),\
-    \ order);\n        V.erase(unique(V.begin(), V.end()), V.end());\n        std::vector<std::vector<int>>\
+    \ in, out;\n    auxiliary_tree(int n) : n(n), lca_tree<int>::lca_tree(n) {}\n\
+    \    void build() {\n        lca_tree::build();\n        in.assign(n, -1);\n \
+    \       out.assign(n, -1);\n        int id = 0;\n        auto dfs = [&](auto dfs,\
+    \ int pos, int par = -1) -> void {\n            in[pos] = id++;\n            for\
+    \ (auto &e : (*this)[pos]) {\n                if (e.to == par) continue;\n   \
+    \             dfs(dfs, e.to, pos);\n            }\n            out[pos] = id;\n\
+    \        };\n        dfs(dfs, 0);\n    };\n    std::pair<int, std::vector<std::vector<int>>>\
+    \ generate(std::vector<int> V) {\n        auto order = [&](int a, int b) { return\
+    \ in[a] < in[b]; };\n        std::vector<int> LV;\n        for (int i = 0; i <\
+    \ V.size() - 1; i++) LV.push_back(lca(V[i], V[i + 1]));\n        for (auto lv\
+    \ : LV) V.push_back(lv);\n        std::sort(V.begin(), V.end(), order);\n    \
+    \    V.erase(unique(V.begin(), V.end()), V.end());\n        std::vector<std::vector<int>>\
     \ G(n);\n        std::stack<int> st;\n        for (int v : V) {\n            while\
     \ (st.size()) {\n                int p = st.top();\n                if (in[p]\
     \ < in[v] && in[v] < out[p]) break;\n                st.pop();\n            }\n\
@@ -83,7 +84,7 @@ data:
   code: "#pragma once\n\n#include <algorithm>\n#include <stack>\n#include <vector>\n\
     \n#include \"graph.hpp\"\n#include \"lca_tree.hpp\"\n\nstruct auxiliary_tree :\
     \ lca_tree<int> {\n    int n;\n    std::vector<int> in, out;\n    auxiliary_tree(int\
-    \ n) : n(n), lca_tree<int>(n) {}\n    void build() {\n        lca_tree::build();\n\
+    \ n) : n(n), lca_tree<int>::lca_tree(n) {}\n    void build() {\n        lca_tree::build();\n\
     \        in.assign(n, -1);\n        out.assign(n, -1);\n        int id = 0;\n\
     \        auto dfs = [&](auto dfs, int pos, int par = -1) -> void {\n         \
     \   in[pos] = id++;\n            for (auto &e : (*this)[pos]) {\n            \
@@ -91,22 +92,23 @@ data:
     \      }\n            out[pos] = id;\n        };\n        dfs(dfs, 0);\n    };\n\
     \    std::pair<int, std::vector<std::vector<int>>> generate(std::vector<int> V)\
     \ {\n        auto order = [&](int a, int b) { return in[a] < in[b]; };\n     \
-    \   std::sort(V.begin(), V.end(), order);\n        for (int i = 0; i < V.size()\
-    \ - 1; i++) V.push_back(lca(V[i], V[i + 1]));\n        std::sort(V.begin(), V.end(),\
-    \ order);\n        V.erase(unique(V.begin(), V.end()), V.end());\n        std::vector<std::vector<int>>\
-    \ G(n);\n        std::stack<int> st;\n        for (int v : V) {\n            while\
-    \ (st.size()) {\n                int p = st.top();\n                if (in[p]\
-    \ < in[v] && in[v] < out[p]) break;\n                st.pop();\n            }\n\
-    \            if (st.size()) {\n                G[st.top()].push_back(v);\n   \
-    \             G[v].push_back(st.top());\n            }\n            st.push(v);\n\
-    \        }\n        return {V[0], G};\n    }\n};"
+    \   std::vector<int> LV;\n        for (int i = 0; i < V.size() - 1; i++) LV.push_back(lca(V[i],\
+    \ V[i + 1]));\n        for (auto lv : LV) V.push_back(lv);\n        std::sort(V.begin(),\
+    \ V.end(), order);\n        V.erase(unique(V.begin(), V.end()), V.end());\n  \
+    \      std::vector<std::vector<int>> G(n);\n        std::stack<int> st;\n    \
+    \    for (int v : V) {\n            while (st.size()) {\n                int p\
+    \ = st.top();\n                if (in[p] < in[v] && in[v] < out[p]) break;\n \
+    \               st.pop();\n            }\n            if (st.size()) {\n     \
+    \           G[st.top()].push_back(v);\n                G[v].push_back(st.top());\n\
+    \            }\n            st.push(v);\n        }\n        return {V[0], G};\n\
+    \    }\n};"
   dependsOn:
   - graph.hpp
   - lca_tree.hpp
   isVerificationFile: false
   path: auxiliary_tree.hpp
   requiredBy: []
-  timestamp: '2024-02-17 20:02:59+09:00'
+  timestamp: '2024-02-18 14:36:32+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: auxiliary_tree.hpp
