@@ -20,7 +20,7 @@ template <typename T = long long> struct lca_tree : Graph<T> {
     }
 
    public:
-    lca_tree(int n) : n(n), Graph<T>(n) {}
+    lca_tree(int n) : n(n), Graph<T>::Graph(n) {}
     void build(int root = 0) {
         K = 0;
         while ((1 << K) < n) K++;
