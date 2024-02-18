@@ -12,6 +12,9 @@ data:
     - icon: ':warning:'
       path: cht.hpp
       title: cht (Convex Hull Trick)
+    - icon: ':warning:'
+      path: convex_hull.hpp
+      title: convex_hull.hpp
     - icon: ':heavy_check_mark:'
       path: dsu_potential.hpp
       title: "\u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D UnionFind"
