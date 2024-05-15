@@ -6,9 +6,15 @@ data:
     path: auxiliary_tree.hpp
     title: auxiliary_tree.hpp
   - icon: ':heavy_check_mark:'
+    path: chromatic_number.hpp
+    title: chromatic_number.hpp
+  - icon: ':heavy_check_mark:'
     path: lca_tree.hpp
     title: lca_tree.hpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/chromatic_number.test.cpp
+    title: verify/chromatic_number.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/lca_tree.test.cpp
     title: verify/lca_tree.test.cpp
@@ -63,12 +69,14 @@ data:
   isVerificationFile: false
   path: graph.hpp
   requiredBy:
-  - lca_tree.hpp
+  - chromatic_number.hpp
   - auxiliary_tree.hpp
+  - lca_tree.hpp
   timestamp: '2024-02-17 19:23:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/lca_tree.test.cpp
+  - verify/chromatic_number.test.cpp
 documentation_of: graph.hpp
 layout: document
 redirect_from:

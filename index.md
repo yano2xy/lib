@@ -9,6 +9,9 @@ data:
     - icon: ':warning:'
       path: bcc_graph.hpp
       title: bcc_graph (Bi-Connected Components)
+    - icon: ':heavy_check_mark:'
+      path: chromatic_number.hpp
+      title: chromatic_number.hpp
     - icon: ':warning:'
       path: cht.hpp
       title: cht (Convex Hull Trick)
@@ -57,6 +60,9 @@ data:
   verificationCategories:
   - name: verify
     pages:
+    - icon: ':heavy_check_mark:'
+      path: verify/chromatic_number.test.cpp
+      title: verify/chromatic_number.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/dsu_potential.test.cpp
       title: verify/dsu_potential.test.cpp
