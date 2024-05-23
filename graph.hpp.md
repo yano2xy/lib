@@ -69,9 +69,9 @@ data:
   isVerificationFile: false
   path: graph.hpp
   requiredBy:
-  - chromatic_number.hpp
-  - auxiliary_tree.hpp
   - lca_tree.hpp
+  - auxiliary_tree.hpp
+  - chromatic_number.hpp
   timestamp: '2024-02-17 19:23:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

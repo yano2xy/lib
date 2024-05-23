@@ -18,6 +18,9 @@ data:
     - icon: ':warning:'
       path: convex_hull.hpp
       title: convex_hull.hpp
+    - icon: ':warning:'
+      path: cumsum_2d.hpp
+      title: cumsum_2d.hpp
     - icon: ':heavy_check_mark:'
       path: dsu_potential.hpp
       title: "\u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D UnionFind"
@@ -48,7 +51,7 @@ data:
     - icon: ':warning:'
       path: segset.hpp
       title: segset
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: segtree_2d.hpp
       title: 2D Segment Tree
     - icon: ':heavy_check_mark:'
@@ -78,7 +81,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/rerooting.test.cpp
       title: verify/rerooting.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/segtree_2d.test.cpp
       title: verify/segtree_2d.test.cpp
     - icon: ':heavy_check_mark:'
