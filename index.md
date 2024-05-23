@@ -52,7 +52,7 @@ data:
     - icon: ':warning:'
       path: segset.hpp
       title: segset
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: segtree_2d.hpp
       title: 2D Segment Tree
     - icon: ':heavy_check_mark:'
@@ -82,7 +82,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/rerooting.test.cpp
       title: verify/rerooting.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/segtree_2d.test.cpp
       title: verify/segtree_2d.test.cpp
     - icon: ':heavy_check_mark:'

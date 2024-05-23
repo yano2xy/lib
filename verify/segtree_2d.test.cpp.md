@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: segtree_2d.hpp
     title: 2D Segment Tree
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1068
@@ -57,7 +57,7 @@ data:
     \ c) {\n            ll a;\n            cin >> a;\n            seg.set(i, j, a);\n\
     \        }\n\n        while (Q--) {\n            int h1, w1, h2, w2;\n       \
     \     cin >> h1 >> w1 >> h2 >> w2;\n            h2++, w2++;\n            cout\
-    \ << seg.prod(h1, w1, h2, w2) << '\\n';\n        }\n    }\n    return 0;\n}\n"
+    \ << seg.prod(h1, h2, w1, w2) << '\\n';\n        }\n    }\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1068\"\
     \n\n#include \"../lib/segtree_2d.hpp\"\n\n#include <bits/stdc++.h>\n\nusing namespace\
     \ std;\n#define rep(i, n) for (int i = 0; i < (n); i++)\nusing ll = long long;\n\
@@ -69,15 +69,15 @@ data:
     \ c);\n        rep(i, r) rep(j, c) {\n            ll a;\n            cin >> a;\n\
     \            seg.set(i, j, a);\n        }\n\n        while (Q--) {\n         \
     \   int h1, w1, h2, w2;\n            cin >> h1 >> w1 >> h2 >> w2;\n          \
-    \  h2++, w2++;\n            cout << seg.prod(h1, w1, h2, w2) << '\\n';\n     \
+    \  h2++, w2++;\n            cout << seg.prod(h1, h2, w1, w2) << '\\n';\n     \
     \   }\n    }\n    return 0;\n}"
   dependsOn:
   - segtree_2d.hpp
   isVerificationFile: true
   path: verify/segtree_2d.test.cpp
   requiredBy: []
-  timestamp: '2024-05-23 15:11:29+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-05-23 15:32:47+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/segtree_2d.test.cpp
 layout: document

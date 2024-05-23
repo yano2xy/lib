@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/segtree_2d.test.cpp
     title: verify/segtree_2d.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/segtree_2d.md
     document_title: 2D Segment Tree
@@ -82,7 +82,7 @@ data:
   path: segtree_2d.hpp
   requiredBy: []
   timestamp: '2024-05-23 15:11:29+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/segtree_2d.test.cpp
 documentation_of: segtree_2d.hpp
