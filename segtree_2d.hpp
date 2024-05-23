@@ -2,16 +2,13 @@
 
 #include <vector>
 
-template <class T, T (*op)(T, T), T (*e)()>
-struct segtree_2d {
+template <class T, T (*op)(T, T), T (*e)()> struct segtree_2d {
    private:
     int id(int h, int w) const { return h * 2 * W + w; }
     void init(int h, int w) {
         H = W = 1;
-        while (H < h)
-            H <<= 1;
-        while (W < w)
-            W <<= 1;
+        while (H < h) H <<= 1;
+        while (W < w) W <<= 1;
         seg.assign(4 * H * W, e());
     }
     void build() {
@@ -68,7 +65,7 @@ struct segtree_2d {
             }
         }
     }
-    T prod(int h1, int w1, int h2, int w2) {
+    T prod(int h1, int h2, int w1, int w2) {
         if (h1 >= h2 || w1 >= w2) return e();
         T res = e();
         h1 += H, h2 += H, w1 += W, w2 += W;

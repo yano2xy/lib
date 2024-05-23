@@ -45,7 +45,7 @@ void seg.set(int h, int w, T x)
 ## prod
 
 ~~~cpp
-T seg.prod(int h1, int w1, int h2, int w2)
+T seg.prod(int h1, int h2, int w1, int w2)
 ~~~
 
 - 半開区間 $[h1, h2) \times [w1, w2)$ に対して総積を取得する
