@@ -36,7 +36,7 @@ int main() {
             int h1, w1, h2, w2;
             cin >> h1 >> w1 >> h2 >> w2;
             h2++, w2++;
-            cout << seg.prod(h1, w1, h2, w2) << '\n';
+            cout << seg.prod(h1, h2, w1, w2) << '\n';
         }
     }
     return 0;
