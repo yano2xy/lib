@@ -11,7 +11,7 @@ data:
       title: bcc_graph (Bi-Connected Components)
     - icon: ':heavy_check_mark:'
       path: chromatic_number.hpp
-      title: chromatic_number.hpp
+      title: "Chromatic Number (\u5F69\u8272\u6570)"
     - icon: ':warning:'
       path: cht.hpp
       title: cht (Convex Hull Trick)
@@ -20,7 +20,8 @@ data:
       title: convex_hull.hpp
     - icon: ':warning:'
       path: cumsum_2d.hpp
-      title: cumsum_2d.hpp
+      title: "2D Cumulative Sum (\u4E8C\u6B21\u5143\u7D2F\u7A4D\u548C/2\u6B21\u5143\
+        imos\u6CD5)"
     - icon: ':heavy_check_mark:'
       path: dsu_potential.hpp
       title: "\u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D UnionFind"

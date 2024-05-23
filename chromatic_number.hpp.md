@@ -13,6 +13,8 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    _deprecated_at_docs: docs/chromatic_number.md
+    document_title: "Chromatic Number (\u5F69\u8272\u6570)"
     links: []
   bundledCode: "#line 1 \"chromatic_number.hpp\"\n#include <vector>\nusing namespace\
     \ std;\n\n#line 2 \"graph.hpp\"\n\n#include <cassert>\n#line 5 \"graph.hpp\"\n\
@@ -49,7 +51,8 @@ data:
     \ {\n        auto buf = hist;\n        for (int c = 1; c < ret; c++) {\n     \
     \       int64_t sum = 0;\n            for (auto &[i, x] : buf) {\n           \
     \     sum += (x = int64_t(x) * i % mods[k]);\n            }\n            if (sum\
-    \ % mods[k]) ret = c;\n        }\n    }\n    return ret;\n}\n"
+    \ % mods[k]) ret = c;\n        }\n    }\n    return ret;\n}\n/**\n * @brief Chromatic\
+    \ Number (\u5F69\u8272\u6570)\n * @docs docs/chromatic_number.md\n */\n"
   code: "#include <vector>\nusing namespace std;\n\n#include \"graph.hpp\"\n\ntemplate\
     \ <class T> int chromatic_number(Graph<T> &G) {\n    int n = (int)G.size();\n\
     \    vector<int> es(n);\n    for (int i = 0; i < n; i++)\n        for (auto e\
@@ -64,13 +67,14 @@ data:
     \ {\n        auto buf = hist;\n        for (int c = 1; c < ret; c++) {\n     \
     \       int64_t sum = 0;\n            for (auto &[i, x] : buf) {\n           \
     \     sum += (x = int64_t(x) * i % mods[k]);\n            }\n            if (sum\
-    \ % mods[k]) ret = c;\n        }\n    }\n    return ret;\n}"
+    \ % mods[k]) ret = c;\n        }\n    }\n    return ret;\n}\n/**\n * @brief Chromatic\
+    \ Number (\u5F69\u8272\u6570)\n * @docs docs/chromatic_number.md\n */"
   dependsOn:
   - graph.hpp
   isVerificationFile: false
   path: chromatic_number.hpp
   requiredBy: []
-  timestamp: '2024-05-16 02:16:26+09:00'
+  timestamp: '2024-05-23 15:29:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/chromatic_number.test.cpp
@@ -79,5 +83,15 @@ layout: document
 redirect_from:
 - /library/chromatic_number.hpp
 - /library/chromatic_number.hpp.html
-title: chromatic_number.hpp
+title: "Chromatic Number (\u5F69\u8272\u6570)"
 ---
+
+# chromatic_numver (彩色数)
+
+与えられたグラフの彩色数を返す
+
+## function
+
+~~~cpp
+int chromatic_number(Graph<T> G)
+~~~

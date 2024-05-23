@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: chromatic_number.hpp
-    title: chromatic_number.hpp
+    title: "Chromatic Number (\u5F69\u8272\u6570)"
   - icon: ':heavy_check_mark:'
     path: graph.hpp
     title: graph.hpp
@@ -53,11 +53,13 @@ data:
     \ {\n        auto buf = hist;\n        for (int c = 1; c < ret; c++) {\n     \
     \       int64_t sum = 0;\n            for (auto &[i, x] : buf) {\n           \
     \     sum += (x = int64_t(x) * i % mods[k]);\n            }\n            if (sum\
-    \ % mods[k]) ret = c;\n        }\n    }\n    return ret;\n}\n#line 7 \"verify/chromatic_number.test.cpp\"\
-    \n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n  \
-    \  int n, m;\n    cin >> n >> m;\n\n    Graph<int> G(n);\n    for (int i = 0;\
-    \ i < m; i++) {\n        int a, b;\n        cin >> a >> b;\n        G.add_edge(a,\
-    \ b);\n    }\n    cout << chromatic_number(G) << '\\n';\n    return 0;\n}\n"
+    \ % mods[k]) ret = c;\n        }\n    }\n    return ret;\n}\n/**\n * @brief Chromatic\
+    \ Number (\u5F69\u8272\u6570)\n * @docs docs/chromatic_number.md\n */\n#line 7\
+    \ \"verify/chromatic_number.test.cpp\"\n\nint main() {\n    ios::sync_with_stdio(false);\n\
+    \    cin.tie(nullptr);\n    int n, m;\n    cin >> n >> m;\n\n    Graph<int> G(n);\n\
+    \    for (int i = 0; i < m; i++) {\n        int a, b;\n        cin >> a >> b;\n\
+    \        G.add_edge(a, b);\n    }\n    cout << chromatic_number(G) << '\\n';\n\
+    \    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/chromatic_number\"\n\n\
     #include <bits/stdc++.h>\nusing namespace std;\n\n#include \"../chromatic_number.hpp\"\
     \n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n  \
@@ -70,7 +72,7 @@ data:
   isVerificationFile: true
   path: verify/chromatic_number.test.cpp
   requiredBy: []
-  timestamp: '2024-05-16 02:16:26+09:00'
+  timestamp: '2024-05-23 15:29:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/chromatic_number.test.cpp

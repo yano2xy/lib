@@ -7,7 +7,7 @@ data:
     title: auxiliary_tree.hpp
   - icon: ':heavy_check_mark:'
     path: chromatic_number.hpp
-    title: chromatic_number.hpp
+    title: "Chromatic Number (\u5F69\u8272\u6570)"
   - icon: ':heavy_check_mark:'
     path: lca_tree.hpp
     title: lca_tree.hpp
