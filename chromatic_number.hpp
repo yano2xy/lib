@@ -37,3 +37,7 @@ template <class T> int chromatic_number(Graph<T> &G) {
     }
     return ret;
 }
+/**
+ * @brief Chromatic Number (彩色数)
+ * @docs docs/chromatic_number.md
+ */

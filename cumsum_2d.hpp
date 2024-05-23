@@ -41,4 +41,9 @@ template <class T = long long> struct cumsum_2d {
         return (data[x2][y2] - data[x1][y2] - data[x2][y1] + data[x1][y1]);
     }
 };
+/**
+ * @brief 2D Cumulative Sum (二次元累積和/2次元imos法)
+ * @docs docs/cumsum_2d.md
+
+*/
 // [x1, x2) × [y1, y2)
